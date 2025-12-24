@@ -16,7 +16,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
   ];
 
   return (
-    <nav className="absolute top-0 left-0 right-0 z-50 pb-10 px-8 sm:px-12 flex justify-between items-center bg-transparent pointer-events-auto">
+    <nav className="relative z-50 py-[20px] px-8 sm:px-12 flex justify-between items-center bg-transparent pointer-events-auto w-full">
       {/* Logo - Chữ thẳng, STIX, không mờ, gạch chân khi hover */}
       <button
         onClick={() => onNavigate('home')}

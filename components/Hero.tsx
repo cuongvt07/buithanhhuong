@@ -22,7 +22,7 @@ const Hero: React.FC = () => {
 
       if (config) {
         return (
-          <span key={index} className="group relative inline-block cursor-help mx-1 first:ml-0 last:mr-0">
+          <span key={index} className="group relative inline-block cursor-help mx-4 first:ml-0 last:mr-0">
             {word}
             {/* Position Wrapper */}
             <div
@@ -42,39 +42,43 @@ const Hero: React.FC = () => {
           </span>
         );
       }
-      return <span key={index} className="mx-1 first:ml-0 last:mr-0">{word}</span>;
+      return <span key={index} className="mx-3 first:ml-0 last:mr-0">{word}</span>;
     });
   };
 
   return (
-    <section className="h-full flex flex-col justify-center items-center px-6 relative overflow-hidden">
+    <section className="flex-1 w-full flex flex-col items-center px-6 pb-[20px] relative overflow-hidden">
 
-      <div className="flex flex-col z-10 select-none w-fit mx-auto space-y-4 translate-x-[50px]">
-        <div className="w-fit text-left ml-[340px] relative z-20 hover:z-10">
-          <h1 className="hero-title">{renderLine("I WALK")}</h1>
-        </div>
-        <div className="w-fit text-left ml-[100px] relative z-20 hover:z-10">
-          <h1 className="hero-title">{renderLine("THIS EARTH,")}</h1>
-        </div>
-        <div className="w-fit text-left ml-[280px] !mb-[15px] relative z-20 hover:z-10">
-          <h1 className="hero-title">{renderLine("WATER THE FLOWERS,")}</h1>
-        </div>
-        <div className="w-fit text-left -ml-[100px] !mb-[15px] relative z-20 hover:z-10">
-          <h1 className="hero-title">{renderLine("PAT THE LITTLE PUPPIES,")}</h1>
-        </div>
-        <div className="w-fit flex items-baseline space-x-6 ml-[260px] !mb-[15px] relative z-20 hover:z-10">
-          <h1 className="relative hero-title">
-            {renderLine("SEW,")}
-            <div className="light-leak absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-[0.96] pointer-events-none opacity-100"></div>
-          </h1>
-          <h1 className="hero-title">{renderLine("GROW RICE, AND")}</h1>
-        </div>
-        <div className="w-fit text-left ml-[90px] !mb-[15px] relative z-20 hover:z-10">
-          <h1 className="hero-title">{renderLine("READ ARCHITECTURE NEWS")}</h1>
+      {/* Main Content - Centered */}
+      <div className="flex-1 w-full flex flex-col justify-center items-center z-10">
+        <div className="flex flex-col select-none w-fit space-y-4">
+          <div className="w-fit text-left ml-[340px] relative z-20 hover:z-10">
+            <h1 className="hero-title">{renderLine("I WALK")}</h1>
+          </div>
+          <div className="w-fit text-left ml-[100px] relative z-20 hover:z-10">
+            <h1 className="hero-title">{renderLine("THIS EARTH,")}</h1>
+          </div>
+          <div className="w-fit text-left ml-[280px] !mb-[10px] relative z-20 hover:z-10">
+            <h1 className="hero-title">{renderLine("WATER THE FLOWERS,")}</h1>
+          </div>
+          <div className="w-fit text-left -ml-[100px] !mb-[10px] relative z-20 hover:z-10">
+            <h1 className="hero-title">{renderLine("PAT THE LITTLE PUPPIES,")}</h1>
+          </div>
+          <div className="w-fit flex items-baseline space-x-6 ml-[260px] !mb-[10px] relative z-20 hover:z-10">
+            <h1 className="relative hero-title">
+              {renderLine("SEW,")}
+              <div className="light-leak absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-[0.96] pointer-events-none opacity-100"></div>
+            </h1>
+            <h1 className="hero-title">{renderLine("GROW RICE, AND")}</h1>
+          </div>
+          <div className="w-fit text-left ml-[90px] !mb-[10px] relative z-20 hover:z-10">
+            <h1 className="hero-title">{renderLine("READ ARCHITECTURE NEWS")}</h1>
+          </div>
         </div>
       </div>
 
-      <div className="absolute bottom-12 w-full flex justify-center items-center space-x-12 bottom-text">
+      {/* Bottom Label - Pushed to bottom */}
+      <div className="w-full flex justify-center items-center space-x-12 bottom-text flex-shrink-0 z-20">
         <span>(</span>
         <span className="tracking-wide">or mostly just breathe</span>
         <span>)</span>

@@ -7,7 +7,6 @@ import Study from './components/Study';
 import Observe from './components/Observe';
 import Work from './components/Work';
 import Play from './components/Play';
-import Footer from './components/Footer';
 import FloatingAI from './components/FloatingAI';
 
 const App: React.FC = () => {
@@ -42,9 +41,8 @@ const App: React.FC = () => {
       <Navbar currentPage={currentPage} onNavigate={navigateTo} />
 
       {/* Main container cho phép cuộn nội bộ nếu cần nhưng ẩn thanh cuộn */}
-      <main className={`flex-1 ${currentPage === 'home' ? 'overflow-hidden' : 'overflow-y-auto'} no-scrollbar transition-all duration-500 ease-in-out ${isTransitioning ? 'opacity-0 scale-[0.99]' : 'opacity-100 scale-100'}`}>
+      <main className={`flex-1 flex flex-col ${currentPage === 'home' ? 'overflow-hidden' : 'overflow-y-auto'} no-scrollbar transition-all duration-500 ease-in-out ${isTransitioning ? 'opacity-0 scale-[0.99]' : 'opacity-100 scale-100'}`}>
         {renderPage()}
-        {currentPage !== 'home' && <Footer />}
       </main>
     </div>
   );

@@ -10,10 +10,12 @@ body {
 
 .app-container {
     background-color: #faf7f3;
-    width: 1905px;
-    height: 900px;
+    width: 100%;
+    min-height: 100vh;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .bottom-text {
