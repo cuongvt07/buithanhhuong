@@ -1,0 +1,8 @@
+{
+  "name": "Bùi Thanh Hương Portfolio Clone",
+  "description": "An elegant, high-end portfolio and landing page inspired by the Bùi Thanh Hương Framer site, featuring smooth animations and a Gemini-powered personal assistant.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

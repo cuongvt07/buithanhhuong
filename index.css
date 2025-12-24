@@ -1,0 +1,41 @@
+body {
+    min-height: 100vh;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background-color: rgb(250, 247, 243);
+}
+
+.app-container {
+    background-color: #faf7f3;
+    width: 1905px;
+    height: 900px;
+    position: relative;
+    overflow: hidden;
+}
+
+.bottom-text {
+    font-family: "STIX Two Text", "STIX Two Text Placeholder", serif;
+    font-size: 17px;
+    font-style: italic;
+    color: rgb(29, 52, 19);
+}
+
+@media (max-width: 809.98px) {
+    .app-container {
+        width: 375px;
+        height: 593px;
+    }
+}
+
+.navbar-title {
+    font-family: "STIX Two Text", "STIX Two Text Placeholder", serif;
+    font-size: 15px;
+    /* Keeping 15px as per previous context, usually size wasn't specified but let's check user request again. Request said 'form của Hi...', didn't specifying size, but previous file had text-[15px]. The user provided block has --framer-font-size: 17px in *previous* request for footer. This request doesn't strictly specifiy size but has a block. Oh wait, the user pasted a block of CSS variables. --framer-font-size is NOT in the new block. The new block has font-selector, font-family, font-style, letter-spacing, text-alignment, text-color. So I will keep 15px or inherrit. Existing is 15px. */
+    font-style: italic;
+    letter-spacing: 0.01em;
+    text-align: center;
+    color: rgb(29, 52, 19);
+}
