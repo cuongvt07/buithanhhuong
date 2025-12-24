@@ -9,10 +9,10 @@ const Hero: React.FC = () => {
   }
 
   const wordImages: Record<string, ImageConfig> = {
-    earth: { src: '/images/earth.avif', width: '250px', x: 0, y: 0 },
-    news: { src: '/images/news.avif', width: '150px', x: -350, y: 0 },
-    pat: { src: '/images/pat.avif', width: '200px', x: 400, y: 10 },
-    flowers: { src: '/images/theflower.avif', width: '300px', x: 0, y: 0 },
+    earth: { src: 'images/earth.avif', width: '250px', x: 0, y: 0 },
+    news: { src: 'images/news.avif', width: '150px', x: -350, y: 0 },
+    pat: { src: 'images/pat.avif', width: '200px', x: 400, y: 10 },
+    flowers: { src: 'images/theflower.avif', width: '300px', x: 0, y: 0 },
   };
 
   const renderLine = (text: string) => {

@@ -2,13 +2,13 @@ import React from 'react';
 
 const Work: React.FC = () => {
   const projects = [
-    { title: 'thêu một mùa thu', img: '/images/1.avif', scale: 0.9, marginRight: 100 },
-    { title: 'vgbc', img: '/images/2.avif', scale: 0.8, marginRight: 80 },
-    { title: 'a seal imprint', img: '/images/3.avif', scale: 0.6, marginRight: 100 },
-    { title: 'vnielts', img: '/images/4.avif', scale: 1, marginRight: 120 },
-    { title: 'fishy feast', img: '/images/5.avif', scale: 0.5, marginRight: 20 },
-    { title: 'What color was your day?', img: '/images/6.avif', scale: 0.7, marginRight: 80 },
-    { title: 'vici dentia', img: '/images/7.avif', scale: 1.3, marginRight: 0 },
+    { title: 'thêu một mùa thu', img: 'images/1.avif', scale: 0.9, marginRight: 100 },
+    { title: 'vgbc', img: 'images/2.avif', scale: 0.8, marginRight: 80 },
+    { title: 'a seal imprint', img: 'images/3.avif', scale: 0.6, marginRight: 100 },
+    { title: 'vnielts', img: 'images/4.avif', scale: 1, marginRight: 120 },
+    { title: 'fishy feast', img: 'images/5.avif', scale: 0.5, marginRight: 20 },
+    { title: 'What color was your day?', img: 'images/6.avif', scale: 0.7, marginRight: 80 },
+    { title: 'vici dentia', img: 'images/7.avif', scale: 1.3, marginRight: 0 },
   ];
 
   return (
