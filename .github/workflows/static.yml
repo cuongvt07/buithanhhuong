@@ -1,0 +1,89 @@
+name: Deploy React to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Build React app and detect artifact
+        id: build_and_detect
+        run: |
+          set -e
+          ART=""
+
+          # Try building in repository root
+          if [ -f package.json ]; then
+            echo "Found root package.json, running npm ci and npm run build"
+            npm ci || true
+            if npm run build; then
+              if [ -d build ]; then ART=build; elif [ -d dist ]; then ART=dist; fi
+            else
+              echo "Root build failed or produced no artifact; continuing to check common subfolders"
+            fi
+          fi
+
+          # Try common subdirectories
+          if [ -z "$ART" ]; then
+            for d in frontend client app; do
+              if [ -f "$d/package.json" ]; then
+                echo "Found $d/package.json, attempting build in $d"
+                (cd "$d" && npm ci && npm run build) && {
+                  if [ -d "$d/build" ]; then ART="$d/build"; elif [ -d "$d/dist" ]; then ART="$d/dist"; fi
+                  break
+                } || echo "Build failed in $d or produced no artifact"
+              fi
+            done
+          fi
+
+          if [ -n "$ART" ]; then
+            echo "artifact=$ART" >> $GITHUB_OUTPUT
+            echo "Build artifact directory: $ART"
+            ls -la "$ART" || true
+          else
+            echo "artifact=none" >> $GITHUB_OUTPUT
+            echo "No build artifact found (no 'build' or 'dist' produced)."
+            exit 1
+          fi
+
+      - name: Show repository root contents (debug)
+        if: always()
+        run: |
+          echo "PWD = $(pwd)"
+          ls -la
+
+      - name: Upload build folder
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ steps.build_and_detect.outputs.artifact }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
