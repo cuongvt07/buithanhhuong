@@ -1,23 +1,25 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { FreeMode, Mousewheel, Keyboard, Scrollbar } from 'swiper/modules';
+import { FreeMode, Mousewheel, Keyboard } from 'swiper/modules';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/free-mode';
-import 'swiper/css/scrollbar';
+
 
 const Work: React.FC = () => {
-  const projects = [
-    { title: 'thêu một mùa thu', img: 'images/1.avif', scale: 0.1, marginRight: 100 },
-    { title: 'vgbc', img: 'images/2.avif', scale: 0.1, marginRight: 80 },
-    { title: 'a seal imprint', img: 'images/3.avif', scale: 0.1, marginRight: 100 },
-    { title: 'vnielts', img: 'images/4.avif', scale: 0.1, marginRight: 120 },
-    { title: 'fishy feast', img: 'images/5.avif', scale: 0.1, marginRight: 20 },
-    { title: 'What color was your day?', img: 'images/6.avif', scale: 0.1, marginRight: 80 },
-    { title: 'vici dentia', img: 'images/7.avif', scale: 0.1, marginRight: 100 },
-    { title: 'vici dentia', img: 'images/8.png', scale: 0.1, marginRight: 0 },
+  const originalProjects = [
+    { title: 'thêu một mùa thu', img: 'images/1.avif', scale: 0.1, marginRight: 110 },
+    { title: 'vgbc', img: 'images/2.avif', scale: 0.1, marginRight: 85 },
+    { title: 'a seal imprint', img: 'images/3.avif', scale: 0.07, marginRight: 155 },
+    { title: 'vnielts', img: 'images/4.avif', scale: 0.15, marginRight: 120 },
+    { title: 'fishy feast', img: 'images/5.avif', scale: 0.05, marginRight: 30 },
+    { title: 'What color was your day?', img: 'images/6.avif', scale: 0.07, marginRight: 80 },
+    { title: 'vici dentia', img: 'images/7.avif', scale: 0.18, marginRight: 100 },
+    { title: 'kickstart', img: 'images/8.png', scale: 0.1, marginRight: 50 },
   ];
+
+  const projects = [...originalProjects, ...originalProjects, ...originalProjects];
 
   return (
     <section className="min-h-screen pt-20 px-0 w-full relative overflow-hidden flex flex-col justify-center">
@@ -30,11 +32,22 @@ const Work: React.FC = () => {
         direction={'horizontal'}
         slidesPerView={'auto'}
         spaceBetween={0}
-        freeMode={true}
-        mousewheel={true}
+        loop={true}
+        speed={1000}
+        grabCursor={true}
+        freeMode={{
+          enabled: true,
+          momentum: true,
+          momentumRatio: 0.8,
+          momentumVelocityRatio: 1,
+          momentumBounce: false,
+        }}
+        mousewheel={{
+          sensitivity: 1.5,
+          forceToAxis: true,
+        }}
         keyboard={true}
-        scrollbar={{ draggable: true, hide: false }}
-        modules={[FreeMode, Mousewheel, Keyboard, Scrollbar]}
+        modules={[FreeMode, Mousewheel, Keyboard]}
         className="w-full h-full flex items-center swiper-work"
       >
         {/* Initial spacer slide */}
@@ -43,7 +56,7 @@ const Work: React.FC = () => {
         </SwiperSlide>
 
         {projects.map((p, i) => (
-          <SwiperSlide key={i} style={{ width: 'auto', marginRight: `${p.marginRight}px` }} className="!flex items-end !h-auto pb-12">
+          <SwiperSlide key={i} style={{ width: 'auto', paddingRight: `${p.marginRight}px` }} className="!flex items-end !h-auto pb-12">
             <div
               className="space-y-4 flex flex-col items-center group flex-shrink-0"
               style={{ width: `${p.scale * 100}vw` }}
@@ -61,19 +74,7 @@ const Work: React.FC = () => {
         <SwiperSlide style={{ width: '32px' }} />
       </Swiper>
 
-      <style dangerouslySetInnerHTML={{
-        __html: `
-        .swiper-work .swiper-scrollbar {
-          background: rgba(29, 52, 19, 0.1);
-          height: 2px;
-          bottom: 40px;
-          left: 8% !important;
-          width: 84% !important;
-        }
-        .swiper-work .swiper-scrollbar-drag {
-          background: rgb(29, 52, 19);
-        }
-      `}} />
+
     </section>
   );
 };
