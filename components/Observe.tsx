@@ -2,9 +2,25 @@
 import React from 'react';
 
 const Observe: React.FC = () => {
-  const thoughts = [
-    "Highschool Student Assessment or fastest-finger-first competition?",
-    "Digital Product vs Architecture - a type of huge physical product"
+  interface ThoughtConfig {
+    text: string;
+    image?: {
+      src: string;
+      width: string;
+      x: number; // Position X (px) relative to center or left
+      y: number; // Position Y (px) relative to center or top
+    };
+  }
+
+  const thoughts: ThoughtConfig[] = [
+    {
+      text: "Highschool Student Assessment or fastest-finger-first competition?",
+      image: { src: 'images/study_1.png', width: '250px', x: 450, y: 0 }
+    },
+    {
+      text: "Digital Product vs Architecture - a type of huge physical product",
+      image: { src: 'images/study_3.png', width: '200px', x: 450, y: 0 }
+    }
   ];
 
   return (
@@ -33,9 +49,24 @@ const Observe: React.FC = () => {
 
           {/* Actual Content aligned with ghost structure */}
           <div className="ml-[340px] flex flex-col space-y-4 text-left">
-            {thoughts.map((thought, i) => (
-              <a key={i} href="#" className="block text-[16px] font-stix text-[#1d3413] hover:after:content-[''] hover:after:block hover:after:w-full hover:after:h-[1px] hover:after:bg-[#1d3413] transition-all max-w-xl leading-relaxed">
-                {thought}
+            {thoughts.map((item, i) => (
+              <a key={i} href="#" className="group relative block text-[16px] font-stix text-[#1d3413] max-w-xl leading-relaxed cursor-help">
+                <span className="relative z-10">{item.text}</span>
+                {item.image && (
+                  <div
+                    className="absolute left-0 top-1/2 -translate-y-1/2 z-50 pointer-events-none"
+                    style={{
+                      width: item.image.width,
+                      transform: `translate(${item.image.x}px, ${item.image.y - 50}%)` // Adjusting Y centering + custom offset
+                    }}
+                  >
+                    <img
+                      src={item.image.src}
+                      alt={item.text}
+                      className="w-full h-auto object-cover opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] origin-center shadow-xl rounded-sm"
+                    />
+                  </div>
+                )}
               </a>
             ))}
           </div>
