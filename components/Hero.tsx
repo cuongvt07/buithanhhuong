@@ -4,7 +4,7 @@ import { COLORS, TYPOGRAPHY, SPACING, BREAKPOINTS } from '../config/designTokens
 const Hero: React.FC = () => {
   // Figma asset URLs for decorative rainbow elements
   const rainbowLightStickerUrl = 'https://www.figma.com/api/mcp/asset/c652ca89-7bd9-46c5-b869-04ffd572b903';
-  const rainbowLightSticker286Url = 'https://www.figma.com/api/mcp/asset/8881352c-5c4c-4dea-8f71-8d51fa2e91e9';
+  const rainbowLightSticker286Url = 'images/8881352c-5c4c-4dea-8f71-8d51fa2e91e9.png';
 
   // Text lines with positioning (top-aligned, laptop 1440px width)
   const textLines = [
@@ -131,24 +131,11 @@ const Hero: React.FC = () => {
         }}
       >
         <style>{`
-          @keyframes fadeInUp {
-            from {
-              opacity: 0;
-              transform: translateY(20px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-          
+
           @media (min-width: ${BREAKPOINTS.tabletLg}px) {
             .hero-text { 
               font-size: ${TYPOGRAPHY.hero.laptop.fontSize}px; 
               line-height: ${TYPOGRAPHY.hero.laptop.lineHeight}px; 
-            }
-            .hero-line {
-              animation: fadeInUp 0.8s ease-out forwards;
             }
           }
           @media (min-width: ${BREAKPOINTS.tablet}px) and (max-width: ${BREAKPOINTS.tabletLg - 1}px) {
@@ -156,17 +143,11 @@ const Hero: React.FC = () => {
               font-size: ${TYPOGRAPHY.hero.tablet.fontSize}px; 
               line-height: ${TYPOGRAPHY.hero.tablet.lineHeight}px; 
             }
-            .hero-line {
-              animation: fadeInUp 0.8s ease-out forwards;
-            }
           }
           @media (max-width: ${BREAKPOINTS.tablet - 1}px) {
             .hero-text { 
               font-size: ${TYPOGRAPHY.hero.mobile.fontSize}px; 
               line-height: ${TYPOGRAPHY.hero.mobile.lineHeight}px; 
-            }
-            .hero-line {
-              animation: fadeInUp 0.6s ease-out forwards;
             }
           }
 
@@ -224,7 +205,6 @@ const Hero: React.FC = () => {
                 color: COLORS.textPrimary,
                 letterSpacing: '0',
                 marginLeft: line.left,
-                opacity: 0,
               }}
             >
               {line.text}

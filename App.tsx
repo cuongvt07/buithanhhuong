@@ -11,17 +11,11 @@ import FloatingAI from './components/FloatingAI';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<string>('home');
-  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const navigateTo = (page: string) => {
     if (page === currentPage) return;
-    setIsTransitioning(true);
-
-    setTimeout(() => {
-      setCurrentPage(page);
-      setIsTransitioning(false);
-      // Không cần scrollTo(0,0) vì chúng ta dùng layout cố định viewport
-    }, 300);
+    setCurrentPage(page);
+    // Không cần scrollTo(0,0) vì chúng ta dùng layout cố định viewport
   };
 
   const renderPage = () => {
@@ -41,7 +35,7 @@ const App: React.FC = () => {
       <Navbar currentPage={currentPage} onNavigate={navigateTo} />
 
       {/* Main container cho phép cuộn nội bộ nếu cần nhưng ẩn thanh cuộn */}
-      <main className={`flex-1 flex flex-col ${currentPage === 'home' ? 'overflow-hidden' : 'overflow-y-auto'} no-scrollbar transition-all duration-500 ease-in-out ${isTransitioning ? 'opacity-0 scale-[0.99]' : 'opacity-100 scale-100'}`}>
+      <main className={`flex-1 flex flex-col ${currentPage === 'home' ? 'overflow-hidden' : 'overflow-y-auto'} no-scrollbar`}>
         {renderPage()}
       </main>
     </div>

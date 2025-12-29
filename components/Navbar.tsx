@@ -21,13 +21,13 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
       {/* Frame 1: Intro text - "Hi, I'm Thanh Huong Bui" */}
       <button
         onClick={() => onNavigate('home')}
-        className="flex items-center justify-center transition-all duration-300 outline-none relative hover:after:content-[''] hover:after:absolute hover:after:left-0 hover:after:-bottom-1 hover:after:w-full hover:after:h-[1px] hover:after:bg-[#1d3413]"
+        className="flex items-center justify-center transition-all duration-300 outline-none relative hover:after:content-[''] hover:after:absolute hover:after:left-0 hover:after:bottom-0 hover:after:w-full hover:after:h-[0.5px] hover:after:bg-[#1d3413]"
         style={{
           fontFamily: TYPOGRAPHY.body.fontFamily.stix,
           fontSize: `${TYPOGRAPHY.body.italic.fontSize}px`,
           fontWeight: TYPOGRAPHY.body.italic.fontWeight,
-          fontStyle: TYPOGRAPHY.body.italic.fontStyle,
-          lineHeight: TYPOGRAPHY.body.italic.lineHeight,
+          fontStyle: 'italic',
+          lineHeight: '20px',
           color: COLORS.textPrimary
         }}
       >
@@ -43,8 +43,8 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
             className={`
               transition-all duration-300 outline-none relative text-center
               ${currentPage === item.id
-                ? 'after:content-[""] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[1px] after:bg-[#1d3413]'
-                : 'hover:after:content-[""] hover:after:absolute hover:after:left-0 hover:after:-bottom-1 hover:after:w-full hover:after:h-[1px] hover:after:bg-[#1d3413]'
+                ? 'after:content-[""] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[0.5px] after:bg-[#1d3413]'
+                : 'hover:after:content-[""] hover:after:absolute hover:after:left-0 hover:after:bottom-0 hover:after:w-full hover:after:h-[0.5px] hover:after:bg-[#1d3413]'
               }
             `}
             style={{
@@ -52,7 +52,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
               fontSize: currentPage === item.id ? '17px' : '16px',
               fontStyle: currentPage === item.id ? 'italic' : 'normal',
               fontWeight: 400,
-              lineHeight: 'normal',
+              lineHeight: '20px',
               color: '#1D3413',
               width: item.id === 'about' ? '32px' : 'auto',
               flexShrink: 0
@@ -67,12 +67,12 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
       <div>
         <a
           href="mailto:hello@buithanhhuong.com"
-          className="relative transition-all duration-300 hover:after:content-[''] hover:after:absolute hover:after:left-0 hover:after:-bottom-1 hover:after:w-full hover:after:h-[1px] hover:after:bg-[#1d3413]"
+          className="relative transition-all duration-300 hover:after:content-[''] hover:after:absolute hover:after:left-0 hover:after:bottom-0 hover:after:w-full hover:after:h-[0.5px] hover:after:bg-[#1d3413]"
           style={{
             fontFamily: TYPOGRAPHY.body.fontFamily.stix,
             fontSize: `${TYPOGRAPHY.body.regular.fontSize}px`,
             fontWeight: TYPOGRAPHY.body.regular.fontWeight,
-            lineHeight: TYPOGRAPHY.body.regular.lineHeight,
+            lineHeight: '20px',
             color: COLORS.textPrimary,
             display: 'inline-block',
             flexShrink: 0
