@@ -44,7 +44,7 @@ const About: React.FC = () => {
             </div>
 
             {/* Actual Content */}
-            <div className="ml-[340px] space-y-6 px-[48px] py-[32px]">
+            <div className="ml-[340px] space-y-4 px-[24px] py-[32px]">
               {currentInterests.map((item, idx) => (
                 <div key={idx} className="flex flex-col md:flex-row gap-8 text-[15px] leading-relaxed">
                   <span className="w-[120px] h-[20px] shrink-0 text-left text-[#1d3413]">{item.label}</span>
@@ -78,7 +78,7 @@ const About: React.FC = () => {
             </div>
 
             {/* Actual Content */}
-            <div className="ml-[340px] space-y-6 px-[48px] py-[32px]">
+            <div className="ml-[340px] space-y-4 px-[24px] py-[32px]">
               {history.map((item, idx) => (
                 <div key={idx} className="flex flex-col md:flex-row gap-8 text-[15px] leading-relaxed">
                   <span className="w-[120px] h-[20px] shrink-0 text-left text-[#1d3413]">{item.period}</span>

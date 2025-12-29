@@ -41,7 +41,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
             key={item.id}
             onClick={() => onNavigate(item.id)}
             className={`
-              transition-all duration-300 outline-none relative text-center
+              transition-all duration-300 outline-none relative text-center grid place-items-center
               ${currentPage === item.id
                 ? 'after:content-[""] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[0.5px] after:bg-[#1d3413]'
                 : 'hover:after:content-[""] hover:after:absolute hover:after:left-0 hover:after:bottom-0 hover:after:w-full hover:after:h-[0.5px] hover:after:bg-[#1d3413]'
@@ -49,8 +49,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
             `}
             style={{
               fontFamily: '"STIX Two Text", serif',
-              fontSize: currentPage === item.id ? '17px' : '16px',
-              fontStyle: currentPage === item.id ? 'italic' : 'normal',
+              fontSize: '17px',
               fontWeight: 400,
               lineHeight: '20px',
               color: '#1D3413',
@@ -58,7 +57,19 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
               flexShrink: 0
             }}
           >
-            {item.label}
+            {/* Reserve space for bold/italic/normal widest variant */}
+            <span className="invisible col-start-1 row-start-1 font-normal opacity-0 pointer-events-none" aria-hidden="true">{item.label}</span>
+            <span className="invisible col-start-1 row-start-1 italic opacity-0 pointer-events-none" aria-hidden="true">{item.label}</span>
+
+            {/* Visible Text */}
+            <span
+              className="col-start-1 row-start-1"
+              style={{
+                fontStyle: currentPage === item.id ? 'italic' : 'normal',
+              }}
+            >
+              {item.label}
+            </span>
           </button>
         ))}
       </div>

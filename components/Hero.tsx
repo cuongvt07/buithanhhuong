@@ -1,8 +1,38 @@
-import React from 'react';
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import { COLORS, TYPOGRAPHY, SPACING, BREAKPOINTS } from '../config/designTokens';
 import SectionLabel from './SectionLabel';
 
 const Hero: React.FC = () => {
+  // State for fluid scaling and positioning
+  const [heroStyle, setHeroStyle] = useState({ scale: 1, top: 'calc(50vh - 88px)' });
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+
+      if (width >= 1440) {
+        // Calculate fluid scale: 1.0 at 1440px -> 1.2 at 1905px
+        // Formula: 1 + (width - 1440) * (0.2 / 465)
+        const scale = Math.min(1.2, 1 + (width - 1440) * (0.2 / 465));
+
+        setHeroStyle({
+          scale: scale,
+          top: '50%'
+        });
+      } else {
+        setHeroStyle({ scale: 1, top: '50%' });
+      }
+    };
+
+    // Initial calculation
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Figma asset URLs for decorative rainbow elements
   const rainbowLightStickerUrl = 'https://www.figma.com/api/mcp/asset/c652ca89-7bd9-46c5-b869-04ffd572b903';
   const rainbowLightSticker286Url = 'images/8881352c-5c4c-4dea-8f71-8d51fa2e91e9.png';
@@ -72,7 +102,7 @@ const Hero: React.FC = () => {
 
   return (
     <section
-      className="relative w-full overflow-hidden"
+      className="w-full overflow-hidden relative"
       style={{
         height: 'calc(100vh - 88px)',
         backgroundColor: COLORS.bgPrimary
@@ -127,8 +157,9 @@ const Hero: React.FC = () => {
         style={{
           width: '960px',
           left: '50%',
-          top: '73px',
-          transform: 'translateX(-50%)'
+          top: '50%',
+          transform: `translate(-50%, -55%) scale(${heroStyle.scale})`,
+          transformOrigin: 'center center',
         }}
       >
         <style>{`
@@ -158,13 +189,6 @@ const Hero: React.FC = () => {
              top: auto !important;
              left: auto !important;
           }
-
-          @media (min-width: 1441px) {
-            .hero-container {
-              transform: translateX(-50%) scale(1.2) !important;
-              transform-origin: top center;
-            }
-          }
         `}</style>
 
         <div
@@ -172,7 +196,7 @@ const Hero: React.FC = () => {
           style={{ alignItems: 'flex-start' }}
         >
           {/* Decorative light-leak elements - hide on mobile */}
-          <div className="hidden md:block">
+          <div className="hidden md:block absolute top-0 left-0 w-full h-full pointer-events-none">
             {/* Center decoration - laptop only */}
             <div
               className="absolute flex items-center justify-center pointer-events-none hidden lg:flex"
