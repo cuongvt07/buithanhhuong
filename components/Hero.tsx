@@ -89,7 +89,28 @@ const Hero: React.FC = () => {
           height: '100px'
         }}
       >
-        <div style={{ transform: 'rotate(-28.701deg)', width: '300px', height: '250px', opacity: 0.3 }}>
+        <div style={{ transform: 'rotate(-32.491degdeg)', width: '300px', height: '250px', opacity: 0.3 }}>
+          <img
+            src={rainbowLightSticker286Url}
+            alt=""
+            className="w-full h-full object-cover"
+            style={{ opacity: 1 }}
+          />
+        </div>
+      </div>
+
+      {/* Additional bottom-right large decoration */}
+      <div
+        className="absolute flex items-center justify-center pointer-events-none hidden lg:flex"
+        style={{
+          right: '-105px',
+          bottom: '-120px',
+          top: 'auto',
+          width: '700px',
+          height: '470px'
+        }}
+      >
+        <div style={{ transform: 'rotate(-28.701deg)', width: '5000px', height: '650px', opacity: 0.1 }}>
           <img
             src={rainbowLightSticker286Url}
             alt=""
@@ -101,7 +122,7 @@ const Hero: React.FC = () => {
 
       {/* Main hero text - responsive scaling */}
       <div
-        className="absolute pointer-events-none"
+        className="absolute pointer-events-none hero-container"
         style={{
           width: '960px',
           left: '50%',
@@ -148,11 +169,19 @@ const Hero: React.FC = () => {
               animation: fadeInUp 0.6s ease-out forwards;
             }
           }
+
           /* Custom overrides per user request */
           .hero-line {
              position: relative !important;
              top: auto !important;
              left: auto !important;
+          }
+
+          @media (min-width: 1441px) {
+            .hero-container {
+              transform: translateX(-50%) scale(1.2) !important;
+              transform-origin: top center;
+            }
           }
         `}</style>
 
