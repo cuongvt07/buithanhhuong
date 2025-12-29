@@ -23,7 +23,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
         onClick={() => onNavigate('home')}
         className="flex items-center justify-center transition-all duration-300 outline-none relative hover:after:content-[''] hover:after:absolute hover:after:left-0 hover:after:bottom-0 hover:after:w-full hover:after:h-[0.5px] hover:after:bg-[#1d3413]"
         style={{
-          fontFamily: TYPOGRAPHY.body.fontFamily.stix,
+          fontFamily: TYPOGRAPHY.fontFamily.stix,
           fontSize: `${TYPOGRAPHY.body.italic.fontSize}px`,
           fontWeight: TYPOGRAPHY.body.italic.fontWeight,
           fontStyle: 'italic',
@@ -69,7 +69,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
           href="mailto:hello@buithanhhuong.com"
           className="relative transition-all duration-300 hover:after:content-[''] hover:after:absolute hover:after:left-0 hover:after:bottom-0 hover:after:w-full hover:after:h-[0.5px] hover:after:bg-[#1d3413]"
           style={{
-            fontFamily: TYPOGRAPHY.body.fontFamily.stix,
+            fontFamily: TYPOGRAPHY.fontFamily.stix,
             fontSize: `${TYPOGRAPHY.body.regular.fontSize}px`,
             fontWeight: TYPOGRAPHY.body.regular.fontWeight,
             lineHeight: '20px',

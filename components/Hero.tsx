@@ -1,5 +1,6 @@
 import React from 'react';
 import { COLORS, TYPOGRAPHY, SPACING, BREAKPOINTS } from '../config/designTokens';
+import SectionLabel from './SectionLabel';
 
 const Hero: React.FC = () => {
   // Figma asset URLs for decorative rainbow elements
@@ -229,68 +230,11 @@ const Hero: React.FC = () => {
           ))}
         </div>
       </div>
-      <div
-        className="absolute left-1/2 z-50 pointer-events-none"
-        style={{
-          transform: 'translateX(-50%)',
-          display: 'flex',
-          padding: '32px',
-          justifyContent: 'space-between',
-          alignItems: 'flex-end',
-          width: '337px',
-          bottom: '0',
-          position: 'absolute'
-        }}
-      >
-        <style>{`
-            .bottom-label-text { font-size: 17px; }
-            @media (max-width: ${BREAKPOINTS.tablet - 1}px) {
-              .bottom-label-text { font-size: 14px; }
-              .bottom-label-container { gap: 60px !important; }
-            }
-          `}</style>
-
-        <span
-          className="bottom-label-text"
-          style={{
-            fontFamily: '"STIX Two Text", serif',
-            fontWeight: 400,
-            fontStyle: 'italic',
-            lineHeight: 'normal',
-            color: '#1D3413',
-          }}
-        >
-          (
-        </span>
-
-        <p
-          className="bottom-label-text"
-          style={{
-            fontFamily: '"STIX Two Text", serif',
-            fontWeight: 400,
-            fontStyle: 'italic',
-            lineHeight: 'normal',
-            color: '#1D3413',
-            margin: 0,
-            whiteSpace: 'nowrap'
-          }}
-        >
-          or mostly just breathe
-        </p>
-
-        <span
-          className="bottom-label-text"
-          style={{
-            fontFamily: '"STIX Two Text", serif',
-            fontWeight: 400,
-            fontStyle: 'italic',
-            lineHeight: 'normal',
-            color: '#1D3413',
-          }}
-        >
-          )
-        </span>
-      </div>
+      <SectionLabel
+        text="or mostly just breathe"
+        width="337px"
+        className="absolute left-1/2 -translate-x-1/2 bottom-0 z-50 pointer-events-none"
+      />
     </section>
   );
 };
