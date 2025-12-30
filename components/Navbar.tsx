@@ -21,17 +21,23 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
       {/* Frame 1: Intro text - "Hi, I'm Thanh Huong Bui" */}
       <button
         onClick={() => onNavigate('home')}
-        className="flex items-center justify-center transition-all duration-300 outline-none relative hover:after:content-[''] hover:after:absolute hover:after:left-0 hover:after:bottom-0 hover:after:w-full hover:after:h-[0.5px] hover:after:bg-[#1d3413]"
+        className={`
+          flex items-center justify-center transition-all duration-300 outline-none relative
+          ${currentPage === 'home'
+            ? ''
+            : 'hover:after:content-[""] hover:after:absolute hover:after:left-0 hover:after:bottom-0 hover:after:w-full hover:after:h-[0.5px] hover:after:bg-[#1d3413]'
+          }
+        `}
         style={{
           fontFamily: TYPOGRAPHY.fontFamily.stix,
-          fontSize: `${TYPOGRAPHY.body.italic.fontSize}px`,
+          fontSize: currentPage === 'home' ? '17px' : '16px',
           fontWeight: TYPOGRAPHY.body.italic.fontWeight,
-          fontStyle: 'italic',
+          fontStyle: currentPage === 'home' ? 'italic' : 'normal',
           lineHeight: '20px',
           color: COLORS.textPrimary
         }}
       >
-        Hi, I'm Thanh Huong Bui
+        Hi, I'm Thanh Huong Bui,
       </button>
 
       {/* Frame 2: Navigation - "I study observe work and play" */}
@@ -43,13 +49,13 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
             className={`
               transition-all duration-300 outline-none relative text-center grid place-items-center
               ${currentPage === item.id
-                ? 'after:content-[""] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[0.5px] after:bg-[#1d3413]'
+                ? ''
                 : 'hover:after:content-[""] hover:after:absolute hover:after:left-0 hover:after:bottom-0 hover:after:w-full hover:after:h-[0.5px] hover:after:bg-[#1d3413]'
               }
             `}
             style={{
               fontFamily: '"STIX Two Text", serif',
-              fontSize: '17px',
+              fontSize: currentPage === item.id ? '17px' : '16px',
               fontWeight: 400,
               lineHeight: '20px',
               color: '#1D3413',
