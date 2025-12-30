@@ -79,7 +79,7 @@ const PlayImageItem: React.FC<{ config: PlayImageConfig }> = ({ config }) => {
 
   return (
     <div
-      className={`absolute transition-transform duration-300 hover:scale-105 ${config.className || ''}`}
+      className={`absolute ${config.className || ''}`}
       style={{
         left: `${config.left || 0}px`,
         top: `${config.top || 0}px`,
