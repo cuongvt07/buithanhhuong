@@ -7,6 +7,7 @@ import Study from './components/Study';
 import Observe from './components/Observe';
 import Work from './components/Work';
 import Play from './components/Play';
+import Contact from './components/Contact';
 import FloatingAI from './components/FloatingAI';
 
 const App: React.FC = () => {
@@ -26,6 +27,7 @@ const App: React.FC = () => {
       case 'observe': return <Observe />;
       case 'work': return <Work />;
       case 'play': return <Play />;
+      case 'contact': return <Contact />;
       default: return <Hero />;
     }
   };

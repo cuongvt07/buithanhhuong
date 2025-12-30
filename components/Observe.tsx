@@ -1,5 +1,6 @@
 
 import React from 'react';
+import SectionLabel from './SectionLabel';
 
 const Observe: React.FC = () => {
   interface ThoughtConfig {
@@ -15,24 +16,22 @@ const Observe: React.FC = () => {
   const thoughts: ThoughtConfig[] = [
     {
       text: "Highschool Student Assessment or fastest-finger-first competition?",
-      image: { src: 'images/study_1.png', width: '250px', x: 450, y: 0 }
+      image: { src: 'images/study_1.png', width: '250px', x: 12, y: 0 }
     },
     {
       text: "Digital Product vs Architecture - a type of huge physical product",
-      image: { src: 'images/study_3.png', width: '200px', x: 450, y: 0 }
+      image: { src: 'images/study_3.png', width: '200px', x: 12, y: 0 }
     }
   ];
 
   return (
     <section className="flex-1 w-full flex flex-col items-center px-6 pb-[20px] relative overflow-hidden">
       {/* Label: Left aligned, Vertically centered */}
-      <div className="absolute left-8 sm:left-12 top-1/2 -translate-y-1/2 z-20">
-        <div className="font-stix italic text-[#1d3413] text-[15px] flex items-center gap-x-4">
-          <span>(</span>
-          <span className="tracking-wide">what's around me</span>
-          <span>)</span>
-        </div>
-      </div>
+      <SectionLabel
+        text="what's around me"
+        width="214px"
+        className="absolute left-0 top-1/2 -translate-y-1/2"
+      />
 
       {/* Main Content - Centered like Hero */}
       <div className="flex-1 w-full flex flex-col justify-center items-center z-10">
@@ -48,13 +47,13 @@ const Observe: React.FC = () => {
           </div>
 
           {/* Actual Content aligned with ghost structure */}
-          <div className="ml-[340px] flex flex-col space-y-4 text-left">
+          <div className="ml-[340px] flex flex-col space-y-4 text-left px-[24px] py-[32px]">
             {thoughts.map((item, i) => (
-              <a key={i} href="#" className="group relative block text-[16px] font-stix text-[#1d3413] max-w-xl leading-relaxed cursor-help">
+              <a key={i} href="#" className="group relative block w-fit text-[16px] font-stix text-[#1d3413] max-w-xl leading-relaxed cursor-help">
                 <span className="relative z-10">{item.text}</span>
                 {item.image && (
                   <div
-                    className="absolute left-0 top-1/2 -translate-y-1/2 z-50 pointer-events-none"
+                    className="absolute left-full top-1/2 -translate-y-1/2 z-50 pointer-events-none"
                     style={{
                       width: item.image.width,
                       transform: `translate(${item.image.x}px, ${item.image.y - 50}%)` // Adjusting Y centering + custom offset

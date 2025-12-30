@@ -2,14 +2,11 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode, Mousewheel, Keyboard } from 'swiper/modules';
 
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/free-mode';
 
-
 const Work: React.FC = () => {
   const originalProjects = [
-    { title: 'thêu một mùa thu', img: 'images/1.avif', scale: 0.1, marginRight: 110 },
     { title: 'vgbc', img: 'images/2.avif', scale: 0.1, marginRight: 85 },
     { title: 'a seal imprint', img: 'images/3.avif', scale: 0.07, marginRight: 155 },
     { title: 'vnielts', img: 'images/4.avif', scale: 0.15, marginRight: 120 },
@@ -17,23 +14,26 @@ const Work: React.FC = () => {
     { title: 'What color was your day?', img: 'images/6.avif', scale: 0.07, marginRight: 80 },
     { title: 'vici dentia', img: 'images/7.avif', scale: 0.18, marginRight: 100 },
     { title: 'kickstart', img: 'images/8.png', scale: 0.1, marginRight: 50 },
+    { title: 'thêu một mùa thu', img: 'images/1.avif', scale: 0.1, marginRight: 110 },
   ];
 
-  const projects = [...originalProjects, ...originalProjects, ...originalProjects];
+  const projects = Array(10).fill(originalProjects).flat();
 
   return (
-    <section className="min-h-screen pt-20 px-0 w-full relative overflow-hidden flex flex-col justify-center">
-      {/* Visual background alignment cue */}
+    <section className="min-h-screen py-[210px] px-0 w-full relative overflow-hidden flex flex-col justify-end">
       <div className="flex w-full items-end justify-start pointer-events-none absolute left-0 z-20 px-8 bottom-[20%]">
-        <span className="font-stix text-[15px] italic text-transparent select-none whitespace-pre flex-shrink-0">Hi, I'm Thanh Huong </span>
+        <span className="font-stix text-[15px] italic text-transparent select-none whitespace-pre flex-shrink-0">
+          Hi, I'm Thanh Huong
+        </span>
       </div>
 
       <Swiper
-        direction={'horizontal'}
-        slidesPerView={'auto'}
+        direction="horizontal"
+        slidesPerView="auto"
         spaceBetween={0}
         loop={true}
-        speed={1000}
+        loopedSlides={8}
+        speed={800}
         grabCursor={true}
         freeMode={{
           enabled: true,
@@ -43,26 +43,30 @@ const Work: React.FC = () => {
           momentumBounce: false,
         }}
         mousewheel={{
-          sensitivity: 1.5,
-          forceToAxis: true,
+          sensitivity: 1.2,
+          forceToAxis: false,
         }}
+        slidesOffsetBefore={32}
         keyboard={true}
         modules={[FreeMode, Mousewheel, Keyboard]}
-        className="w-full h-full flex items-center swiper-work"
+        className="w-full h-full flex items-end swiper-work"
       >
-        {/* Initial spacer slide */}
-        <SwiperSlide style={{ width: 'auto' }} className="!flex items-end pl-8">
-          <span className="font-stix text-[15px] italic text-transparent select-none whitespace-pre">Hi, I'm Thanh Huong </span>
-        </SwiperSlide>
-
         {projects.map((p, i) => (
-          <SwiperSlide key={i} style={{ width: 'auto', paddingRight: `${p.marginRight}px` }} className="!flex items-end !h-auto pb-12">
+          <SwiperSlide
+            key={i}
+            style={{ width: 'auto', paddingRight: `${p.marginRight}px` }}
+            className="!flex items-end !h-auto"
+          >
             <div
               className="space-y-4 flex flex-col items-center group flex-shrink-0"
               style={{ width: `${p.scale * 100}vw` }}
             >
-              <div className="w-full bg-gray-50 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-700 cursor-crosshair">
-                <img src={p.img} alt={p.title} className="w-full h-auto object-cover transition-all duration-1000" />
+              <div className="w-full overflow-hidden transition-all duration-700 cursor-crosshair max-h-[244px]">
+                <img
+                  src={p.img}
+                  alt={p.title}
+                  className="w-full h-full object-cover transition-all duration-1000"
+                />
               </div>
               <p className="font-serif text-[13px] text-[#1d3413] italic opacity-0 group-hover:opacity-100 transition-opacity duration-500 whitespace-nowrap">
                 {p.title}
@@ -70,11 +74,8 @@ const Work: React.FC = () => {
             </div>
           </SwiperSlide>
         ))}
-        {/* End padding slide */}
         <SwiperSlide style={{ width: '32px' }} />
       </Swiper>
-
-
     </section>
   );
 };
