@@ -34,7 +34,9 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
           fontWeight: TYPOGRAPHY.body.italic.fontWeight,
           fontStyle: currentPage === 'home' ? 'italic' : 'normal',
           lineHeight: '20px',
-          color: COLORS.textPrimary
+          color: COLORS.textPrimary,
+          minWidth: '220px',
+          whiteSpace: 'nowrap'
         }}
       >
         Hi, I'm Thanh Huong Bui,
