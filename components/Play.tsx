@@ -225,36 +225,53 @@ const Play: React.FC = () => {
   };
 
   return (
-    <div
-      className="fixed inset-0 overflow-hidden bg-[#FAF7F3] cursor-grab active:cursor-grabbing"
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseLeave}
-      onWheel={handleWheel}
-      style={{ userSelect: 'none' }}
-    >
-      <div
-        ref={canvasRef}
-        className="absolute"
-        style={{
-          width: `${canvasSize.width}px`,
-          height: `${canvasSize.height}px`,
-          transform: `translate(${position.x}px, ${position.y}px)`,
-          transition: isDragging ? 'none' : 'transform 0.1s ease-out',
-        }}
-      >
-        {/* Content positioned absolutely within the infinite canvas */}
-        <div className="absolute" style={{
-          left: `${FIXED_CONTENT_POSITION.x}px`, // Center point
-          top: `${FIXED_CONTENT_POSITION.y}px`,
-          // Note: transform logic removed here because individual items have their own relative offsets
-        }}>
+    <div className="w-full h-screen bg-[#FAF7F3] relative overflow-hidden">
 
-          {/* Render Images from Configuration */}
-          {PLAY_IMAGES.map((config) => (
-            <PlayImageItem key={config.id} config={config} />
-          ))}
+      {/* Mobile Vertical Layout */}
+      <div className="md:hidden w-full h-full overflow-y-auto pt-20 pb-24 px-4 flex flex-col items-center gap-8">
+        {PLAY_IMAGES.map((config) => (
+          <div key={config.id} className="w-full flex justify-center">
+            <img
+              src={config.defaultSrc}
+              alt={`Play item ${config.id}`}
+              className="w-full max-w-[300px] h-auto object-contain rounded-sm shadow-sm"
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop Infinite Canvas Layout */}
+      <div
+        className="hidden md:block fixed inset-0 overflow-hidden bg-[#FAF7F3] cursor-grab active:cursor-grabbing"
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseLeave}
+        onWheel={handleWheel}
+        style={{ userSelect: 'none' }}
+      >
+        <div
+          ref={canvasRef}
+          className="absolute"
+          style={{
+            width: `${canvasSize.width}px`,
+            height: `${canvasSize.height}px`,
+            transform: `translate(${position.x}px, ${position.y}px)`,
+            transition: isDragging ? 'none' : 'transform 0.1s ease-out',
+          }}
+        >
+          {/* Content positioned absolutely within the infinite canvas */}
+          <div className="absolute" style={{
+            left: `${FIXED_CONTENT_POSITION.x}px`, // Center point
+            top: `${FIXED_CONTENT_POSITION.y}px`,
+            // Note: transform logic removed here because individual items have their own relative offsets
+          }}>
+
+            {/* Render Images from Configuration */}
+            {PLAY_IMAGES.map((config) => (
+              <PlayImageItem key={config.id} config={config} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

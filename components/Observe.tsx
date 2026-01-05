@@ -25,19 +25,21 @@ const Observe: React.FC = () => {
   ];
 
   return (
-    <section className="flex-1 w-full flex flex-col items-center px-6 pb-[20px] relative overflow-hidden">
-      {/* Label: Left aligned, Vertically centered */}
+    <section className="flex-1 w-full md:h-screen min-h-screen flex flex-col items-center px-4 md:px-6 pb-24 md:pb-[20px] relative overflow-hidden">
+      {/* Label: Relative Top on mobile, Absolute Left on desktop */}
       <SectionLabel
         text="what's around me"
         width="214px"
-        className="absolute left-0 top-1/2 -translate-y-1/2"
+        mobileWidth="214px"
+        className="relative mb-10 md:mb-0 md:absolute md:left-0 md:top-1/2 md:-translate-y-1/2 mt-20 md:mt-0"
       />
 
       {/* Main Content - Centered like Hero */}
-      <div className="flex-1 w-full flex flex-col justify-center items-center z-10">
-        <div className="relative w-fit mx-auto translate-x-[50px]">
-          {/* Ghost Element from Hero to force identical centering */}
-          <div className="flex flex-col select-none w-full space-y-4 opacity-0 pointer-events-none h-0 overflow-hidden">
+      <div className="flex-1 w-full flex flex-col justify-start md:justify-center items-center z-10">
+        <div className="relative w-full md:w-fit mx-auto md:translate-x-[50px]">
+          {/* Ghost Element from Hero - Desktop Only */}
+          <div className="hidden md:flex flex-col select-none w-full space-y-4 opacity-0 pointer-events-none h-0 overflow-hidden">
+            {/* ... Ghost content ... */}
             <div className="w-full text-left ml-[340px]"><h1 className="hero-title">I WALK</h1></div>
             <div className="w-full text-left ml-[100px]"><h1 className="hero-title">THIS EARTH,</h1></div>
             <div className="w-full text-left ml-[280px] !mb-[10px]"><h1 className="hero-title">WATER THE FLOWERS,</h1></div>
@@ -47,13 +49,13 @@ const Observe: React.FC = () => {
           </div>
 
           {/* Actual Content aligned with ghost structure */}
-          <div className="ml-[340px] flex flex-col space-y-4 text-left px-[24px] py-[32px]">
+          <div className="ml-0 md:ml-[340px] flex flex-col space-y-4 text-center md:text-left px-4 md:px-[48px] py-0 md:py-[32px]">
             {thoughts.map((item, i) => (
-              <a key={i} href="#" className="group relative block w-fit text-[16px] font-stix text-[#1d3413] max-w-xl leading-relaxed cursor-help">
+              <a key={i} href="#" className="group relative block w-full md:w-fit text-[16px] font-stix text-[#1d3413] max-w-xl leading-relaxed cursor-help mx-auto md:mx-0">
                 <span className="relative z-10">{item.text}</span>
                 {item.image && (
                   <div
-                    className="absolute left-full top-1/2 -translate-y-1/2 z-50 pointer-events-none"
+                    className="hidden md:block absolute left-full top-1/2 -translate-y-1/2 z-50 pointer-events-none"
                     style={{
                       width: item.image.width,
                       transform: `translate(${item.image.x}px, ${item.image.y - 50}%)` // Adjusting Y centering + custom offset

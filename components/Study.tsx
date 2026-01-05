@@ -24,22 +24,23 @@ const Study: React.FC = () => {
   ];
 
   return (
-    <section className="w-full h-full relative overflow-hidden flex-grow">
-      {/* Container anchored to bottom, grouping Label and List */}
-      <div className="absolute bottom-0 left-0 w-full flex flex-col items-center justify-end z-10 pointer-events-none">
+    <section className="w-full md:h-full min-h-screen relative overflow-hidden flex-grow flex flex-col md:block">
+      {/* Container anchored to bottom on desktop, stacked on mobile */}
+      <div className="relative md:absolute bottom-0 left-0 w-full flex flex-col items-center justify-start md:justify-end z-10 pointer-events-none pb-20 md:pb-0">
         {/* Label: Pushed up by list with 32px gap */}
         <SectionLabel
           text="gems"
           width="192px"
-          className="pointer-events-auto"
+          mobileWidth="192px"
+          className="pointer-events-auto mt-20 md:mt-0"
           style={{ position: 'relative', transform: 'none', left: 'auto', top: 'auto' }}
         />
 
         {/* Gap of 32px */}
-        <div style={{ height: '32px' }}></div>
+        <div className="h-[32px]"></div>
 
         {/* List: Bottom block with padding */}
-        <div className="text-center p-[120px_32px_120px_32px] pointer-events-auto">
+        <div className="text-center px-4 py-8 md:p-[120px_32px_120px_32px] pointer-events-auto">
           <div className="flex flex-col gap-[16px] items-center">
             {gems.map((item, i) => (
               <a
