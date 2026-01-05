@@ -5,7 +5,13 @@ import { FreeMode, Mousewheel, Keyboard } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 
-const Work: React.FC = () => {
+import WannaTalk from './WannaTalk';
+
+interface WorkProps {
+  onNavigate: (page: string) => void;
+}
+
+const Work: React.FC<WorkProps> = ({ onNavigate }) => {
   const originalProjects = [
     { title: 'vgbc', img: 'images/2.avif', scale: 0.1, marginRight: 85 },
     { title: 'a seal imprint', img: 'images/3.avif', scale: 0.07, marginRight: 155 },
@@ -20,22 +26,24 @@ const Work: React.FC = () => {
   const projects = Array(10).fill(originalProjects).flat();
 
   return (
-    <section className="min-h-screen md:min-h-0 md:h-screen py-0 md:py-[210px] px-0 w-full relative overflow-hidden flex flex-col justify-end">
+    <section className="h-auto md:min-h-0 md:h-screen mt-[20px] md:mt-0 py-0 md:py-[210px] px-0 w-full relative overflow-hidden flex flex-col md:justify-end">
 
-      {/* Mobile Vertical Layout */}
-      <div className="md:hidden w-full flex flex-col items-center px-4 pt-20 pb-24 space-y-12 overflow-y-auto">
-        {originalProjects.map((p, i) => (
-          <div key={i} className="flex flex-col items-center w-full space-y-4">
-            <div className="w-full max-w-[300px] overflow-hidden rounded-sm shadow-sm">
-              <img src={p.img} alt={p.title} className="w-full h-auto object-cover" />
-            </div>
-            <p className="font-serif text-[15px] text-[#1d3413] italic">{p.title}</p>
-          </div>
-        ))}
-      </div>
+      {/* Unified Swiper Layout for both Mobile and Desktop */}
+      <div className="w-full h-full relative">
+        <style>{`
+          .work-item-container {
+             /* Mobile: Scale based on 1440px reference width */
+             width: calc(var(--scale) * 1440px); 
+          }
+          @media (min-width: 768px) {
+            .work-item-container {
+               /* Desktop: Scale based on viewport width */
+               width: calc(var(--scale) * 100vw);
+            }
+          }
+        `}</style>
 
-      {/* Desktop Swiper Layout */}
-      <div className="hidden md:block w-full h-full relative">
+
         <div className="flex w-full items-end justify-start pointer-events-none absolute left-0 z-20 px-8 bottom-[20%]">
           {/* ... keeping original absolute spacer label if needed, or remove if unused ... */}
         </div>
@@ -71,8 +79,8 @@ const Work: React.FC = () => {
               className="!flex items-end !h-auto"
             >
               <div
-                className="space-y-4 flex flex-col items-center group flex-shrink-0"
-                style={{ width: `${p.scale * 100}vw` }}
+                className="space-y-4 flex flex-col items-center group flex-shrink-0 work-item-container"
+                style={{ '--scale': p.scale } as React.CSSProperties}
               >
                 <div className="w-full overflow-hidden transition-all duration-700 cursor-crosshair max-h-[244px]">
                   <img
@@ -89,6 +97,11 @@ const Work: React.FC = () => {
           ))}
           <SwiperSlide style={{ width: '32px' }} />
         </Swiper>
+      </div>
+
+      {/* Mobile "Wanna Talk" - Integrated in flow - only visible on mobile */}
+      <div className="md:hidden w-full pointer-events-auto bg-[#faf7f3]">
+        <WannaTalk onNavigate={onNavigate} />
       </div>
     </section>
   );

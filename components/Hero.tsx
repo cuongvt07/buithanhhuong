@@ -3,8 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import { COLORS, TYPOGRAPHY, SPACING, BREAKPOINTS } from '../config/designTokens';
 import SectionLabel from './SectionLabel';
+import WannaTalk from './WannaTalk';
 
-const Hero: React.FC = () => {
+interface HeroProps {
+  onNavigate: (page: string) => void;
+}
+
+const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
   // State for fluid scaling and positioning
   const [heroStyle, setHeroStyle] = useState({ scale: 1, top: 'calc(50vh - 88px)' });
 
@@ -276,6 +281,11 @@ const Hero: React.FC = () => {
         mobileWidth="205px" // Adjustable for mobile
         className="relative mt-[60px] md:absolute md:left-1/2 md:-translate-x-1/2 md:bottom-0 md:mt-0 z-50 pointer-events-none left-1/2 -translate-x-1/2"
       />
+
+      {/* Mobile "Wanna Talk" - Integrated in flow - only visible on mobile */}
+      <div className="md:hidden w-full pointer-events-auto bg-[#faf7f3]">
+        <WannaTalk onNavigate={onNavigate} />
+      </div>
     </section>
   );
 };
