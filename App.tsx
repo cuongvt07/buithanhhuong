@@ -37,7 +37,14 @@ const App: React.FC = () => {
       <Navbar currentPage={currentPage} onNavigate={navigateTo} />
 
       {/* Main container cho phép cuộn nội bộ nếu cần nhưng ẩn thanh cuộn */}
-      <main className={`flex-1 flex flex-col ${currentPage === 'home' ? 'overflow-hidden' : 'overflow-y-auto'} no-scrollbar`}>
+      <style>{`
+        @media (max-width: 767px) {
+          main {
+            width: 100% !important;
+          }
+        }
+      `}</style>
+      <main className={`flex-1 flex flex-col ${currentPage === 'home' ? 'md:overflow-hidden overflow-y-auto' : 'overflow-y-auto'} no-scrollbar`}>
         {renderPage()}
       </main>
     </div>

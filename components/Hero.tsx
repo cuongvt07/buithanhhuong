@@ -102,12 +102,19 @@ const Hero: React.FC = () => {
 
   return (
     <section
-      className="w-full overflow-hidden relative"
+      className="w-full overflow-hidden relative hero-mobile-height"
       style={{
         height: 'calc(100vh - 88px)',
         backgroundColor: COLORS.bgPrimary
       }}
     >
+      <style>{`
+        @media (max-width: ${BREAKPOINTS.tablet - 1}px) {
+          .hero-mobile-height {
+            height: auto !important;
+          }
+        }
+      `}</style>
 
 
       {/* Right side decoration - fixed to screen right edge */}
@@ -152,8 +159,23 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Main hero text - responsive scaling */}
+      {/* Mobile Hero Text - Simple & Centered - Natural Flow */}
+      <div className="w-full flex flex-col items-center justify-center md:hidden z-40 pointer-events-none gap-[5px] relative py-20">
+        {/* Background Image for Mobile Text */}
+        <div className="absolute bottom-[-45px] left-[25%] w-[400px] h-[400px] z-0 transform scale-[0.5] origin-bottom-left -rotate-[20deg] opacity-50">
+          <img src={rainbowLightSticker286Url} alt="" className="w-full h-full object-contain" />
+        </div>
+
+        <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '100%', color: COLORS.textPrimary }}>I walk this Earth,</span>
+        <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '100%', color: COLORS.textPrimary }}>water the flowers,</span>
+        <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '100%', color: COLORS.textPrimary }}>pat the little puppies,</span>
+        <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '100%', color: COLORS.textPrimary }}>sew, grow rice, and</span>
+        <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '100%', color: COLORS.textPrimary }}>read architecture news</span>
+      </div>
+
+      {/* Main hero text - responsive scaling (Desktop/Tablet Only) */}
       <div
-        className="absolute pointer-events-none hero-container"
+        className="absolute pointer-events-none hero-container hidden md:block"
         style={{
           width: '960px',
           left: '50%',
@@ -176,12 +198,6 @@ const Hero: React.FC = () => {
               line-height: ${TYPOGRAPHY.hero.tablet.lineHeight}px; 
             }
           }
-          @media (max-width: ${BREAKPOINTS.tablet - 1}px) {
-            .hero-text { 
-              font-size: ${TYPOGRAPHY.hero.mobile.fontSize}px; 
-              line-height: ${TYPOGRAPHY.hero.mobile.lineHeight}px; 
-            }
-          }
 
           /* Custom overrides per user request */
           .hero-line {
@@ -192,7 +208,7 @@ const Hero: React.FC = () => {
         `}</style>
 
         <div
-          className="hero-text relative w-full flex flex-col gap-[28px]"
+          className="hero-text relative w-full flex flex-col gap-[28px] md:gap-[28px]"
           style={{ alignItems: 'flex-start' }}
         >
           {/* Decorative light-leak elements - hide on mobile */}
@@ -257,7 +273,8 @@ const Hero: React.FC = () => {
       <SectionLabel
         text="or mostly just breathe"
         width="337px"
-        className="absolute left-1/2 -translate-x-1/2 bottom-0 z-50 pointer-events-none"
+        mobileWidth="205px" // Adjustable for mobile
+        className="relative mt-[60px] md:absolute md:left-1/2 md:-translate-x-1/2 md:bottom-0 md:mt-0 z-50 pointer-events-none left-1/2 -translate-x-1/2"
       />
     </section>
   );

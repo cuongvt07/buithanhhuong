@@ -4,26 +4,32 @@ import { BREAKPOINTS } from '../config/designTokens';
 interface SectionLabelProps {
     text: string;
     width?: string;
+    mobileWidth?: string;
     className?: string;
     style?: React.CSSProperties;
 }
 
-const SectionLabel: React.FC<SectionLabelProps> = ({ text, width = 'auto', className = '', style = {} }) => {
+const SectionLabel: React.FC<SectionLabelProps> = ({ text, width = 'auto', mobileWidth, className = '', style = {} }) => {
+    const effectiveMobileWidth = mobileWidth || width;
+
     return (
         <div
-            className={`section-label-container ${className}`}
+            className={`section-label-container absolute ${className}`}
             style={{
                 display: 'flex',
                 padding: '32px',
                 justifyContent: 'space-between',
                 alignItems: 'flex-end',
-                width: width,
                 boxSizing: 'content-box',
-                position: 'absolute', // Default per request usage, can be overridden via className relative if needed? Actually user snippet had position absolute.
+                '--label-width': width,
+                '--label-mobile-width': effectiveMobileWidth,
                 ...style
-            }}
+            } as React.CSSProperties}
         >
             <style>{`
+        .section-label-container {
+             width: var(--label-width);
+        }
         .section-label-text {
           font-family: 'STIX Two Text', serif;
           font-size: 17px;
@@ -33,8 +39,9 @@ const SectionLabel: React.FC<SectionLabelProps> = ({ text, width = 'auto', class
           color: #1D3413;
         }
         @media (max-width: ${BREAKPOINTS.tablet - 1}px) {
-          .section-label-text { font-size: 14px; }
-          .section-label-container { gap: 60px !important; }
+          .section-label-container {
+             width: var(--label-mobile-width) !important;
+          }
         }
       `}</style>
             <span className="section-label-text">(</span>
