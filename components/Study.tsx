@@ -23,6 +23,9 @@ const Study: React.FC = () => {
     }
   ];
 
+  // Duplicate gems for mobile "infinite" scroll simulation
+  const mobileGems = [...gems, ...gems, ...gems, ...gems];
+
   return (
     <section className="w-full md:h-full min-h-screen relative overflow-hidden flex-grow flex flex-col md:block">
       {/* Container anchored to bottom on desktop, stacked on mobile */}
@@ -32,7 +35,7 @@ const Study: React.FC = () => {
           text="gems"
           width="192px"
           mobileWidth="192px"
-          className="pointer-events-auto mt-20 md:mt-0"
+          className="pointer-events-auto md:mt-0"
           style={{ position: 'relative', transform: 'none', left: 'auto', top: 'auto' }}
         />
 
@@ -40,18 +43,19 @@ const Study: React.FC = () => {
         <div className="h-[32px]"></div>
 
         {/* List: Bottom block with padding */}
-        <div className="text-center px-4 py-8 md:p-[120px_32px_120px_32px] pointer-events-auto">
-          <div className="flex flex-col gap-[16px] items-center">
-            {gems.map((item, i) => (
+        <div className="w-full text-center px-0 md:px-4 py-8 md:p-[120px_32px_120px_32px] pointer-events-auto overflow-hidden md:overflow-visible">
+
+          {/* MOBILE VIEW: Horizontal Infinite Scroll */}
+          <div className="flex md:hidden flex-row flex-nowrap gap-8 items-start overflow-x-auto snap-x snap-mandatory px-8 w-full scrollbar-hide pb-8">
+            {mobileGems.map((item, i) => (
               <a
-                key={i}
+                key={`mobile-${i}`}
                 href="#"
-                className="group relative block text-[16px] font-stix text-[#1d3413] transition-all w-fit leading-relaxed"
+                className="group relative flex flex-col items-center shrink-0 w-[219px] snap-center text-[16px] font-stix text-[#1d3413] transition-all leading-relaxed"
               >
-                {/* Hover Image: Centered, 8px above text */}
+                {/* Image: Fixed 219x150 */}
                 <div
-                  className="absolute bottom-full mb-[8px] left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20"
-                  style={{ width: item.width, height: item.height }}
+                  className="relative mb-6 opacity-100 transition-opacity duration-300 pointer-events-none z-20 w-[219px] h-[150px]"
                 >
                   <img
                     src={item.image}
@@ -60,7 +64,32 @@ const Study: React.FC = () => {
                   />
                 </div>
 
-                {item.text}
+                <span className="block whitespace-normal w-full">{item.text}</span>
+              </a>
+            ))}
+          </div>
+
+          {/* DESKTOP VIEW: Vertical List */}
+          <div className="hidden md:flex flex-col gap-[16px] items-center">
+            {gems.map((item, i) => (
+              <a
+                key={`desktop-${i}`}
+                href="#"
+                className="group relative block text-[16px] font-stix text-[#1d3413] transition-all w-fit leading-relaxed"
+              >
+                {/* Hover Image: Centered, 8px above text */}
+                <div
+                  className="absolute bottom-full mb-[8px] left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20 md:w-[var(--d-w)] md:h-[var(--d-h)]"
+                  style={{ '--d-w': item.width, '--d-h': item.height } as React.CSSProperties}
+                >
+                  <img
+                    src={item.image}
+                    alt=""
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                <span className="block">{item.text}</span>
               </a>
             ))}
           </div>

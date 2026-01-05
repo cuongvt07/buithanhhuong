@@ -45,7 +45,7 @@ const About: React.FC = () => {
             </div>
 
             {/* Actual Content - Interests */}
-            <div className="w-full md:w-auto ml-0 md:ml-[340px] md:space-y-4 px-2 md:px-4 py-0 md:py-[32px]">
+            <div className="w-full md:w-auto ml-0 md:ml-[340px] md:space-y-4 px-2 md:px-[48px] py-0 md:py-[32px]">
               {currentInterests.map((item, idx) => (
                 <div key={idx} className="flex flex-col md:flex-row gap-0 md:gap-8 text-[16px] leading-relaxed items-center md:items-start text-center md:text-left">
                   {/* Mobile: Inline text */}
@@ -63,7 +63,7 @@ const About: React.FC = () => {
         </div>
 
         {/* Group 2: History */}
-        <div className="w-full relative px-4 md:px-12 pb-[32px] shrink-0 flex flex-col justify-start md:block">
+        <div className="w-full relative px-4 md:px-12 pb-[48px] shrink-0 flex flex-col justify-start md:block">
           {/* Label */}
           <SectionLabel
             text="drifted"
@@ -86,7 +86,7 @@ const About: React.FC = () => {
             </div>
 
             {/* Actual Content - History */}
-            <div className="w-full md:w-auto ml-0 md:ml-[340px] md:space-y-4 px-4 md:px-[48px] py-0 md:py-[32px]">
+            <div className="w-full md:w-auto ml-0 md:ml-[340px] md:space-y-4 px-4 md:px-[48px] py-0 md:py-[48px]">
               {history.map((item, idx) => (
                 <div key={idx} className="flex flex-row md:flex-row gap-4 md:gap-8 text-[16px] leading-relaxed justify-between md:justify-start items-start text-left w-full">
                   <span className="w-[120px] md:w-[120px] shrink-0 text-[#1d3413] font-normal whitespace-nowrap">{item.period}</span>
