@@ -1,4 +1,4 @@
-name: Deploy React to GitHub Pages
+name: Deploy Vite/React App to GitHub Pages
 
 on:
   push:
@@ -15,75 +15,28 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - name: Build React app and detect artifact
-        id: build_and_detect
-        run: |
-          set -e
-          ART=""
+      - name: Install dependencies
+        run: npm ci
 
-          # Try building in repository root
-          if [ -f package.json ]; then
-            echo "Found root package.json, running npm ci and npm run build"
-            npm ci || true
-            if npm run build; then
-              if [ -d build ]; then ART=build; elif [ -d dist ]; then ART=dist; fi
-            else
-              echo "Root build failed or produced no artifact; continuing to check common subfolders"
-            fi
-          fi
+      - name: Build Vite/React app
+        run: npm run build
 
-          # Try common subdirectories
-          if [ -z "$ART" ]; then
-            for d in frontend client app; do
-              if [ -f "$d/package.json" ]; then
-                echo "Found $d/package.json, attempting build in $d"
-                (cd "$d" && npm ci && npm run build) && {
-                  if [ -d "$d/build" ]; then ART="$d/build"; elif [ -d "$d/dist" ]; then ART="$d/dist"; fi
-                  break
-                } || echo "Build failed in $d or produced no artifact"
-              fi
-            done
-          fi
+      - name: List build output (debug)
+        run: ls -la dist
 
-          if [ -n "$ART" ]; then
-            echo "artifact=$ART" >> $GITHUB_OUTPUT
-            echo "Build artifact directory: $ART"
-            ls -la "$ART" || true
-          else
-            echo "artifact=none" >> $GITHUB_OUTPUT
-            echo "No build artifact found (no 'build' or 'dist' produced)."
-            exit 1
-          fi
-
-      - name: Show repository root contents (debug)
-        if: always()
-        run: |
-          echo "PWD = $(pwd)"
-          ls -la
-
-      - name: Upload build folder
+      - name: Upload dist to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ steps.build_and_detect.outputs.artifact }}
+          path: dist
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v4
