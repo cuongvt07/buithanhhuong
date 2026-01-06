@@ -52,7 +52,9 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
               transition-all duration-300 outline-none relative text-center grid place-items-center
               ${currentPage === item.id
                 ? ''
-                : 'hover:after:content-[""] hover:after:absolute hover:after:left-0 hover:after:bottom-0 hover:after:w-full hover:after:h-[0.5px] hover:after:bg-[#1d3413]'
+                : item.id === 'about'
+                  ? 'hover:after:content-[""] hover:after:absolute hover:after:left-1/2 hover:after:-translate-x-1/2 hover:after:bottom-0 hover:after:w-[20px] hover:after:h-[0.5px] hover:after:bg-[#1d3413]'
+                  : 'hover:after:content-[""] hover:after:absolute hover:after:left-[-1px] hover:after:bottom-0 hover:after:w-[calc(100%+2px)] hover:after:h-[0.5px] hover:after:bg-[#1d3413]'
               }
             `}
             style={{
