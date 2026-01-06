@@ -21,13 +21,13 @@ const App: React.FC = () => {
 
   const renderPage = () => {
     switch (currentPage) {
-      case 'home': return <Hero />;
+      case 'home': return <Hero onNavigate={navigateTo} />;
       case 'about': return <About />;
-      case 'study': return <Study />;
-      case 'observe': return <Observe />;
-      case 'work': return <Work />;
+      case 'study': return <Study onNavigate={navigateTo} />;
+      case 'observe': return <Observe onNavigate={navigateTo} />;
+      case 'work': return <Work onNavigate={navigateTo} />;
       case 'play': return <Play />;
-      case 'contact': return <Contact />;
+      case 'contact': return <Contact onNavigate={navigateTo} />;
       default: return <Hero />;
     }
   };

@@ -1,7 +1,12 @@
 import React from 'react';
 import SectionLabel from './SectionLabel';
+import WannaTalk from './WannaTalk';
 
-const Study: React.FC = () => {
+interface StudyProps {
+  onNavigate: (page: string) => void;
+}
+
+const Study: React.FC<StudyProps> = ({ onNavigate }) => {
   const gems = [
     {
       text: "Teeter-totter wall - designing for human connection rights",
@@ -29,7 +34,7 @@ const Study: React.FC = () => {
   return (
     <section className="w-full md:h-full min-h-screen relative overflow-hidden flex-grow flex flex-col md:block">
       {/* Container anchored to bottom on desktop, stacked on mobile */}
-      <div className="relative md:absolute bottom-0 left-0 w-full flex flex-col items-center justify-start md:justify-end z-10 pointer-events-none pb-20 md:pb-0">
+      <div className="relative md:absolute bottom-0 left-0 w-full flex flex-col items-center justify-start md:justify-end z-10 pointer-events-none pb-0 md:pb-0">
         {/* Label: Pushed up by list with 32px gap */}
         <SectionLabel
           text="gems"
@@ -93,6 +98,11 @@ const Study: React.FC = () => {
               </a>
             ))}
           </div>
+        </div>
+
+        {/* Mobile "Wanna Talk" - Integrated in flow */}
+        <div className="md:hidden w-full pointer-events-auto bg-[#faf7f3]">
+          <WannaTalk onNavigate={onNavigate} />
         </div>
       </div>
     </section>

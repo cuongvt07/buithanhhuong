@@ -1,5 +1,6 @@
 
 import React from 'react';
+import WannaTalk from './WannaTalk';
 import { COLORS, TYPOGRAPHY, SPACING } from '../config/designTokens';
 
 interface NavbarProps {
@@ -82,30 +83,12 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
       </div>
 
       {/* Block 3: CTA */}
-      <div
-        className="md:relative fixed bottom-0 left-0 w-full md:w-auto md:bottom-auto md:left-auto z-50 flex justify-center md:block py-[32px] md:py-0"
-        style={{ backgroundColor: window.innerWidth < 768 ? COLORS.bgPrimary : 'transparent' }}
-      >
-        <button
-          onClick={() => onNavigate('contact')}
-          className="relative transition-all duration-300 hover:after:content-[''] hover:after:absolute hover:after:left-0 hover:after:bottom-0 hover:after:w-full hover:after:h-[0.5px] hover:after:bg-[#1d3413] outline-none"
-          style={{
-            fontFamily: TYPOGRAPHY.fontFamily.stix,
-            fontSize: `${TYPOGRAPHY.body.regular.fontSize}px`,
-            fontWeight: TYPOGRAPHY.body.regular.fontWeight,
-            lineHeight: '20px',
-            color: COLORS.textPrimary,
-            display: 'inline-block',
-            flexShrink: 0,
-            background: 'none',
-            border: 'none',
-            padding: 0,
-            cursor: 'pointer'
-          }}
-        >
-          wanna talk?
-        </button>
-      </div>
+      <WannaTalk
+        onNavigate={onNavigate}
+        className={`md:relative md:w-auto md:bottom-auto md:left-auto md:bg-transparent md:block
+          ${(currentPage === 'study' || currentPage === 'home' || currentPage === 'observe' || currentPage === 'work' || currentPage === 'contact') ? 'hidden md:block' : 'fixed bottom-0 left-0 w-full flex bg-[#faf7f3]'}
+        `}
+      />
     </nav>
   );
 };

@@ -2,7 +2,13 @@
 import React from 'react';
 import SectionLabel from './SectionLabel';
 
-const Contact: React.FC = () => {
+import WannaTalk from './WannaTalk';
+
+interface ContactProps {
+    onNavigate: (page: string) => void;
+}
+
+const Contact: React.FC<ContactProps> = ({ onNavigate }) => {
     interface ContactConfig {
         label: string;
         text: string;
@@ -38,26 +44,40 @@ const Contact: React.FC = () => {
     ];
 
     return (
-        <section className="flex-1 w-full flex flex-col items-center relative overflow-hidden justify-end">
-            <div className="absolute left-[0px] flex flex-col gap-[23px] items-start">
-                {/* Label: positioned 23px above image */}
+        <section className="flex-1 w-full flex flex-col items-center relative md:overflow-hidden overflow-y-auto md:justify-end">
+            {/* Desktop Left Side (Absolute) */}
+            <div className="hidden md:flex absolute left-[0px] flex-col gap-[23px] items-start">
                 <SectionLabel
                     text="ping me"
                     width="144px"
                     className=""
                     style={{ position: 'relative' }}
                 />
-
-                {/* Decorative image in bottom-left corner */}
                 <div className="p-[24px]">
                     <img src="images/Frame 7.svg" alt="" className="w-full h-full" />
                 </div>
             </div>
 
+            {/* Mobile Top Section (Vertical Stack) */}
+            <div className="flex md:hidden flex-col items-center gap-6 mt-12 w-full">
+                {/* Image First */}
+                <div className="w-[100px] h-[100px]">
+                    <img src="images/Frame 7.svg" alt="" className="w-full h-full object-contain" />
+                </div>
+                {/* Label Second */}
+                <SectionLabel
+                    text="ping me"
+                    width="144px"
+                    mobileWidth="144px"
+                    className="relative"
+                    style={{ left: 'auto', top: 'auto', transform: 'none' }}
+                />
+            </div>
+
 
             {/* Main Content - Bottom aligned */}
-            <div className="w-full flex flex-col justify-end items-center z-10">
-                <div className="relative w-fit mx-auto translate-x-[50px]">
+            <div className="w-full flex flex-col justify-end items-center z-10 flex-1 md:flex-none">
+                <div className="relative w-full md:w-fit mx-auto md:translate-x-[50px]">
                     {/* Ghost Element from Hero to force identical centering */}
                     <div className="flex flex-col select-none w-full space-y-4 opacity-0 pointer-events-none h-0 overflow-hidden">
                         <div className="w-full text-left ml-[340px]"><h1 className="hero-title">I WALK</h1></div>
@@ -69,9 +89,9 @@ const Contact: React.FC = () => {
                     </div>
 
                     {/* Actual Content aligned with ghost structure */}
-                    <div className="ml-[340px] flex flex-col space-y-4 text-left px-[48px] py-[32px]">
+                    <div className="ml-0 md:ml-[340px] flex flex-col space-y-4 text-left md:text-left px-4 md:px-[48px] py-[32px] w-full">
                         {contacts.map((item, i) => (
-                            <div key={i} className="flex items-baseline gap-[100px]">
+                            <div key={i} className="flex flex-row items-baseline gap-[20px] md:gap-[100px]">
                                 <span className="text-[16px] font-stix text-[#1d3413] leading-relaxed min-w-[120px]">
                                     {item.label}
                                 </span>
@@ -79,7 +99,7 @@ const Contact: React.FC = () => {
                                     href={item.link || "#"}
                                     target={item.link?.startsWith('http') ? '_blank' : undefined}
                                     rel={item.link?.startsWith('http') ? 'noopener noreferrer' : undefined}
-                                    className="group relative block w-fit text-[16px] font-stix text-[#1d3413] leading-relaxed hover:underline"
+                                    className="group relative block w-fit text-[16px] font-stix text-[#1d3413] leading-relaxed hover:underline text-left md:text-left"
                                 >
                                     <span className="relative z-10">{item.text}</span>
                                 </a>
@@ -88,7 +108,13 @@ const Contact: React.FC = () => {
                     </div>
                 </div>
             </div>
-        </section>
+
+
+            {/* Mobile "Wanna Talk" - Integrated in flow - only visible on mobile */}
+            <div className="md:hidden w-full pointer-events-auto bg-[#faf7f3] mt-12">
+                <WannaTalk onNavigate={onNavigate} />
+            </div>
+        </section >
     );
 };
 
