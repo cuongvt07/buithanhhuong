@@ -33,7 +33,7 @@ body {
 
 .navbar-title {
     font-family: "STIX Two Text", "STIX Two Text Placeholder", serif;
-    font-size: 15px;
+    font-size: 16px;
     /* Keeping 15px as per previous context, usually size wasn't specified but let's check user request again. Request said 'form của Hi...', didn't specifying size, but previous file had text-[15px]. The user provided block has --framer-font-size: 17px in *previous* request for footer. This request doesn't strictly specifiy size but has a block. Oh wait, the user pasted a block of CSS variables. --framer-font-size is NOT in the new block. The new block has font-selector, font-family, font-style, letter-spacing, text-alignment, text-color. So I will keep 15px or inherrit. Existing is 15px. */
     font-style: italic;
     letter-spacing: 0.01em;
