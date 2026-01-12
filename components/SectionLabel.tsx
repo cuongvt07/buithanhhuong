@@ -14,7 +14,7 @@ const SectionLabel: React.FC<SectionLabelProps> = ({ text, width = 'auto', mobil
 
     return (
         <div
-            className={`section-label-container absolute ${className}`}
+            className={`section-label-container ${className}`}
             style={{
                 display: 'flex',
                 padding: '32px',
@@ -35,7 +35,7 @@ const SectionLabel: React.FC<SectionLabelProps> = ({ text, width = 'auto', mobil
           font-size: 17px;
           font-weight: 400;
           font-style: italic;
-          line-height: 1;
+          line-height: 20px;
           color: #1D3413;
         }
         @media (max-width: ${BREAKPOINTS.tablet - 1}px) {

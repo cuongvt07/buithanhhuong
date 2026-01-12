@@ -71,13 +71,13 @@ export const TYPOGRAPHY = {
       fontSize: 16,
       fontWeight: 400,
       fontStyle: 'normal',
-      lineHeight: 1,
+      lineHeight: '20px',
     },
     italic: {
       fontSize: 17,
       fontWeight: 400,
       fontStyle: 'italic',
-      lineHeight: 1,
+      lineHeight: '20px',
     },
   } as const,
 } as const;

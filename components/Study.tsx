@@ -40,7 +40,7 @@ const Study: React.FC<StudyProps> = ({ onNavigate }) => {
           text="gems"
           width="192px"
           mobileWidth="192px"
-          className="pointer-events-auto md:mt-0"
+          className="absolute pointer-events-auto md:mt-0"
           style={{ position: 'relative', transform: 'none', left: 'auto', top: 'auto' }}
         />
 
@@ -56,7 +56,7 @@ const Study: React.FC<StudyProps> = ({ onNavigate }) => {
               <a
                 key={`mobile-${i}`}
                 href="#"
-                className="group relative flex flex-col items-center shrink-0 w-[219px] snap-center text-[16px] font-stix text-[#1d3413] transition-all leading-relaxed"
+                className="group relative flex flex-col items-center shrink-0 w-[219px] snap-center text-[16px] font-stix text-[#1d3413] transition-all leading-[20px]"
               >
                 {/* Image: Fixed 219x150 */}
                 <div
@@ -80,7 +80,7 @@ const Study: React.FC<StudyProps> = ({ onNavigate }) => {
               <a
                 key={`desktop-${i}`}
                 href="#"
-                className="group relative block text-[16px] font-stix text-[#1d3413] transition-all w-fit leading-relaxed"
+                className="group relative block text-[16px] font-stix text-[#1d3413] transition-all w-fit leading-[20px]"
               >
                 {/* Hover Image: Centered, 8px above text */}
                 <div

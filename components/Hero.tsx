@@ -109,7 +109,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
     <section
       className="w-full overflow-hidden relative hero-mobile-height"
       style={{
-        height: 'calc(100vh - 88px)',
+        height: 'calc(100vh - 90px)',
         backgroundColor: COLORS.bgPrimary
       }}
     >
@@ -171,11 +171,18 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
           <img src={rainbowLightSticker286Url} alt="" className="w-full h-full object-contain" />
         </div>
 
-        <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '100%', color: COLORS.textPrimary }}>I walk this Earth,</span>
-        <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '100%', color: COLORS.textPrimary }}>water the flowers,</span>
-        <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '100%', color: COLORS.textPrimary }}>pat the little puppies,</span>
-        <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '100%', color: COLORS.textPrimary }}>sew, grow rice, and</span>
-        <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '100%', color: COLORS.textPrimary }}>read architecture news</span>
+        <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '20px', color: COLORS.textPrimary }}>I walk this Earth,</span>
+        <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '20px', color: COLORS.textPrimary }}>water the flowers,</span>
+        <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '20px', color: COLORS.textPrimary }}>pat the little puppies,</span>
+        <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '20px', color: COLORS.textPrimary }}>sew, grow rice, and</span>
+        <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '20px', color: COLORS.textPrimary }}>read architecture news</span>
+
+        <SectionLabel
+          text="or mostly just breathe"
+          width="205px"
+          mobileWidth="205px"
+          className="relative mt-[72px] left-1/2 -translate-x-1/2 z-50 pointer-events-auto"
+        />
       </div>
 
       {/* Main hero text - responsive scaling (Desktop/Tablet Only) */}
@@ -213,7 +220,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
         `}</style>
 
         <div
-          className="hero-text relative w-full flex flex-col gap-[28px] md:gap-[28px]"
+          className="hero-text relative w-full flex flex-col gap-[28px] md:gap-[27px] pb-[15px]"
           style={{ alignItems: 'flex-start' }}
         >
           {/* Decorative light-leak elements - hide on mobile */}
@@ -256,7 +263,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               {line.text}
               {line.image && (
                 <div
-                  className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-[9999]"
+                  className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-[9999]"
                   style={{
                     width: line.image.width,
                     height: line.image.height,
@@ -267,20 +274,26 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                   <img
                     src={line.image.src}
                     alt=""
-                    className="w-full h-full object-cover rounded-sm shadow-xl"
+                    className="w-full h-full object-cover rounded-sm"
                   />
                 </div>
               )}
             </div>
           ))}
+
         </div>
       </div>
-      <SectionLabel
-        text="or mostly just breathe"
-        width="337px"
-        mobileWidth="205px" // Adjustable for mobile
-        className="relative mt-[60px] md:absolute md:left-1/2 md:-translate-x-1/2 md:bottom-0 md:mt-0 z-50 pointer-events-none left-1/2 -translate-x-1/2"
-      />
+
+      {/* Desktop Section Label at literal bottom edge */}
+      <div className="hidden md:block absolute bottom-0 left-0 w-full pointer-events-none z-50">
+        <div className="flex justify-center">
+          <SectionLabel
+            text="or mostly just breathe"
+            width="337px"
+            className="pointer-events-auto"
+          />
+        </div>
+      </div>
 
       {/* Mobile "Wanna Talk" - Integrated in flow - only visible on mobile */}
       <div className="md:hidden w-full pointer-events-auto bg-[#faf7f3]">

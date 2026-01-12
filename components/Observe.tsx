@@ -36,7 +36,7 @@ const Observe: React.FC<ObserveProps> = ({ onNavigate }) => {
         text="what's around me"
         width="214px"
         mobileWidth="214px"
-        className="relative mb-10 md:mb-0 md:absolute md:left-0 md:top-1/2 md:-translate-y-1/2 md:mt-0"
+        className="absolute relative mb-10 md:mb-0 md:absolute md:left-0 md:top-1/2 md:-translate-y-1/2 md:mt-0"
       />
 
       {/* Main Content - Centered like Hero */}
@@ -59,7 +59,7 @@ const Observe: React.FC<ObserveProps> = ({ onNavigate }) => {
               <a
                 key={i}
                 href="#"
-                className="group relative flex flex-row md:block items-end md:items-start text-[16px] font-stix text-[#1d3413] leading-relaxed cursor-help w-full md:w-fit mx-0 md:mx-0 gap-[24px] md:gap-0"
+                className="group relative flex flex-row md:block items-end md:items-start text-[16px] font-stix text-[#1d3413] leading-[20px] cursor-help w-full md:w-fit mx-0 md:mx-0 gap-[24px] md:gap-0"
               >
                 {/* Mobile Image: Left side, static */}
                 {item.image && (

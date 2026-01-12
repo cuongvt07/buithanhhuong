@@ -50,7 +50,7 @@ const Contact: React.FC<ContactProps> = ({ onNavigate }) => {
                 <SectionLabel
                     text="ping me"
                     width="144px"
-                    className=""
+                    className="absolute"
                     style={{ position: 'relative' }}
                 />
                 <div className="p-[24px]">
@@ -69,7 +69,7 @@ const Contact: React.FC<ContactProps> = ({ onNavigate }) => {
                     text="ping me"
                     width="144px"
                     mobileWidth="144px"
-                    className="relative"
+                    className="absolute relative"
                     style={{ left: 'auto', top: 'auto', transform: 'none' }}
                 />
             </div>
@@ -92,14 +92,14 @@ const Contact: React.FC<ContactProps> = ({ onNavigate }) => {
                     <div className="ml-0 md:ml-[340px] flex flex-col space-y-4 text-left md:text-left px-4 md:px-[48px] py-[32px] w-full">
                         {contacts.map((item, i) => (
                             <div key={i} className="flex flex-row items-baseline gap-[20px] md:gap-[100px]">
-                                <span className="text-[16px] font-stix text-[#1d3413] leading-relaxed min-w-[120px]">
+                                <span className="text-[16px] font-stix text-[#1d3413] leading-[20px] min-w-[120px]">
                                     {item.label}
                                 </span>
                                 <a
                                     href={item.link || "#"}
                                     target={item.link?.startsWith('http') ? '_blank' : undefined}
                                     rel={item.link?.startsWith('http') ? 'noopener noreferrer' : undefined}
-                                    className="group relative block w-fit text-[16px] font-stix text-[#1d3413] leading-relaxed hover:underline text-left md:text-left"
+                                    className="group relative block w-fit text-[16px] font-stix text-[#1d3413] leading-[20px] hover:underline text-left md:text-left"
                                 >
                                     <span className="relative z-10">{item.text}</span>
                                 </a>
