@@ -26,7 +26,7 @@ const Work: React.FC<WorkProps> = ({ onNavigate }) => {
   const projects = Array(10).fill(originalProjects).flat();
 
   return (
-    <section className="h-auto md:min-h-0 md:h-screen mt-[20px] md:mt-0 py-0 md:py-[210px] px-0 w-full relative overflow-hidden flex flex-col md:justify-end">
+    <section className="h-auto md:min-h-0 md:h-screen mt-[20px] md:mt-0 py-0 md:pb-[30vh] px-0 w-full relative overflow-hidden flex flex-col md:justify-end">
 
       {/* Unified Swiper Layout for both Mobile and Desktop */}
       <div className="w-full h-full relative">
@@ -89,7 +89,10 @@ const Work: React.FC<WorkProps> = ({ onNavigate }) => {
                     className="w-full h-full object-cover transition-all duration-1000"
                   />
                 </div>
-                <p className="font-serif text-[13px] text-[#1d3413] italic opacity-0 group-hover:opacity-100 transition-opacity duration-500 whitespace-nowrap">
+                <p
+                  className="font-stix text-[16px] text-[#1d3413] opacity-0 group-hover:opacity-100 transition-opacity duration-500 whitespace-nowrap mt-4 leading-[20px] text-center"
+                  style={{ fontFamily: '"STIX Two Text", serif', fontStyle: 'normal', fontWeight: 400 }}
+                >
                   {p.title}
                 </p>
               </div>

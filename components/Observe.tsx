@@ -21,40 +21,40 @@ const Observe: React.FC<ObserveProps> = ({ onNavigate }) => {
   const thoughts: ThoughtConfig[] = [
     {
       text: "Highschool Student Assessment or fastest-finger-first competition?",
-      image: { src: 'images/study_1.png', width: '250px', x: 12, y: 0 }
+      image: { src: 'images/study_1.png', width: '160px', x: 12, y: 0 }
     },
     {
       text: "Digital Product vs Architecture - a type of huge physical product",
-      image: { src: 'images/study_3.png', width: '200px', x: 12, y: 0 }
+      image: { src: 'images/study_3.png', width: '160px', x: 12, y: 0 }
     }
   ];
 
   return (
     <section className="flex-1 w-full md:h-screen min-h-screen flex flex-col items-center px-4 md:px-6 pb-24 md:pb-[20px] relative overflow-hidden">
-      {/* Label: Relative Top on mobile, Absolute Left on desktop */}
-      <SectionLabel
-        text="what's around me"
-        width="214px"
-        mobileWidth="214px"
-        className="absolute relative mb-10 md:mb-0 md:absolute md:left-0 md:top-1/2 md:-translate-y-1/2 md:mt-0"
-      />
+      {/* Section Label (Mobile: Centered, Desktop: Centered Fixed) */}
+      <div className="md:hidden w-full flex justify-center">
+        <SectionLabel
+          text="what's around me"
+          width="214px"
+          mobileWidth="214px"
+          className="relative"
+        />
+      </div>
 
-      {/* Main Content - Centered like Hero */}
-      <div className="flex-1 w-full flex flex-col justify-start md:justify-center items-center z-10">
-        <div className="relative w-full md:w-fit mx-auto md:translate-x-[50px]">
-          {/* Ghost Element from Hero - Desktop Only */}
-          <div className="hidden md:flex flex-col select-none w-full space-y-4 opacity-0 pointer-events-none h-0 overflow-hidden">
-            {/* ... Ghost content ... */}
-            <div className="w-full text-left ml-[340px]"><h1 className="hero-title">I WALK</h1></div>
-            <div className="w-full text-left ml-[100px]"><h1 className="hero-title">THIS EARTH,</h1></div>
-            <div className="w-full text-left ml-[280px] !mb-[10px]"><h1 className="hero-title">WATER THE FLOWERS,</h1></div>
-            <div className="w-full text-left -ml-[100px] !mb-[10px]"><h1 className="hero-title">PAT THE LITTLE PUPPIES,</h1></div>
-            <div className="w-full flex items-baseline space-x-6 ml-[260px] !mb-[10px]"><h1 className="hero-title">SEW, GROW RICE, AND</h1></div>
-            <div className="w-full text-left ml-[90px] !mb-[10px]"><h1 className="hero-title">READ ARCHITECTURE NEWS</h1></div>
-          </div>
+      <div className="hidden md:flex fixed top-1/2 left-0 w-full -translate-y-1/2 items-center justify-start pointer-events-none z-10">
+        <SectionLabel
+          text="what's around me"
+          width="214px"
+          mobileWidth="214px"
+        />
+      </div>
 
-          {/* Actual Content aligned with ghost structure */}
-          <div className="ml-0 md:ml-[340px] flex flex-col gap-8 md:gap-4 px-4 md:px-[48px] py-0 md:py-[32px] w-full">
+      {/* Main Content - Centered Full Viewport */}
+      <div className="relative md:fixed md:inset-0 w-full flex flex-col justify-start md:justify-center items-center z-10 pointer-events-none">
+        <div className="relative w-full md:w-max md:ml-[120px] md:p-[32px_42px] pointer-events-auto">
+
+          {/* Actual Content - Left aligned items within a centered block */}
+          <div className="flex flex-col gap-8 md:gap-[16px] px-4 md:px-0 py-0 w-full items-center md:items-start">
             {thoughts.map((item, i) => (
               <a
                 key={i}
@@ -73,23 +73,40 @@ const Observe: React.FC<ObserveProps> = ({ onNavigate }) => {
                 )}
 
                 {/* Text */}
-                <span className="relative z-10 text-left md:text-left flex-1 md:flex-none">
-                  {item.text}
+                <span className="relative z-10 text-left flex-1 md:flex-none">
+                  {/* Handle specific mobile line breaks */}
+                  <span className="md:hidden">
+                    {i === 0 && (
+                      <>
+                        Highschool Student <br /> Assessment or fastest- <br /> finger-first competition?
+                      </>
+                    )}
+                    {i === 1 && (
+                      <>
+                        Digital Product vs <br /> Architecture - a type of <br /> huge physical product
+                      </>
+                    )}
+                    {/* Fallback for other items if any */}
+                    {i > 1 && item.text}
+                  </span>
+                  {/* Desktop Text */}
+                  <span className="hidden md:inline">
+                    {item.text}
+                  </span>
                 </span>
 
-                {/* Desktop Hover Image */}
+                {/* Desktop Hover Image - Positioned to the right of the text */}
                 {item.image && (
                   <div
-                    className="hidden md:block absolute left-full top-1/2 -translate-y-1/2 z-50 pointer-events-none"
+                    className="hidden md:block absolute left-full top-1/2 -translate-y-1/2 ml-4 z-50 pointer-events-none"
                     style={{
                       width: item.image.width,
-                      transform: `translate(${item.image.x}px, ${item.image.y - 50}%)` // Adjusting Y centering + custom offset
                     }}
                   >
                     <img
                       src={item.image.src}
                       alt={item.text}
-                      className="w-full h-auto object-cover opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] origin-center shadow-xl rounded-sm"
+                      className="w-full h-auto object-cover opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] origin-left shadow-xl rounded-sm"
                     />
                   </div>
                 )}
@@ -98,8 +115,10 @@ const Observe: React.FC<ObserveProps> = ({ onNavigate }) => {
           </div>
 
           {/* Mobile "Wanna Talk" - Integrated in flow - only visible on mobile */}
-          <div className="md:hidden w-full pointer-events-auto bg-[#faf7f3] mt-8">
-            <WannaTalk onNavigate={onNavigate} />
+          <div className="md:hidden w-full pointer-events-auto bg-[#faf7f3] mt-8 flex justify-center">
+            <div className="w-full">
+              <WannaTalk onNavigate={onNavigate} />
+            </div>
           </div>
         </div>
       </div>

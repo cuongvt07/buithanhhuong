@@ -167,7 +167,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
       {/* Mobile Hero Text - Simple & Centered - Natural Flow */}
       <div className="w-full flex flex-col items-center justify-center md:hidden z-40 pointer-events-none gap-[5px] relative py-20">
         {/* Background Image for Mobile Text */}
-        <div className="absolute bottom-[-45px] left-[25%] w-[400px] h-[400px] z-0 transform scale-[0.5] origin-bottom-left -rotate-[20deg] opacity-50">
+        <div className="absolute bottom-[120px] left-[25%] w-[400px] h-[400px] z-0 transform scale-[0.5] origin-bottom-left -rotate-[20deg] opacity-50">
           <img src={rainbowLightSticker286Url} alt="" className="w-full h-full object-contain" />
         </div>
 
@@ -181,7 +181,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
           text="or mostly just breathe"
           width="205px"
           mobileWidth="205px"
-          className="relative mt-[72px] left-1/2 -translate-x-1/2 z-50 pointer-events-auto"
+          className="relative mt-[72px] z-50 pointer-events-auto"
         />
       </div>
 

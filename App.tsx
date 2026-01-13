@@ -44,7 +44,9 @@ const App: React.FC = () => {
           }
         }
       `}</style>
-      <main className={`flex-1 flex flex-col ${currentPage === 'home' ? 'md:overflow-hidden overflow-y-auto' : 'overflow-y-auto'} no-scrollbar`}>
+      <main className={`flex-1 flex flex-col 
+        pt-0 ${['home', 'work', 'play', 'study', 'observe'].includes(currentPage) ? 'md:pt-0' : 'md:pt-[84px]'}
+        ${currentPage === 'home' ? 'md:overflow-hidden overflow-y-auto' : 'overflow-y-auto'} no-scrollbar`}>
         {renderPage()}
       </main>
     </div>

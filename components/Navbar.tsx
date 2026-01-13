@@ -17,12 +17,12 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
   ];
 
   return (
-    <nav className="relative z-50 px-[24px] py-[32px] flex md:flex-row flex-col md:justify-between md:items-center items-center bg-transparent pointer-events-auto w-full" style={{ gap: SPACING.gap.default }}>
+    <nav className="relative md:fixed top-0 left-0 z-50 px-[24px] pt-[32px] pb-[24px] md:py-[32px] flex md:flex-row flex-col md:justify-between md:items-center items-center bg-transparent pointer-events-none w-full" style={{ gap: SPACING.gap.default }}>
       {/* Block 1: Intro text */}
       <button
         onClick={() => onNavigate('home')}
         className={`
-          relative transition-none outline-none after:transition-all after:duration-300
+          relative transition-none outline-none after:transition-all after:duration-300 pointer-events-auto
           ${currentPage === 'home'
             ? ''
             : 'hover:after:content-[""] hover:after:absolute hover:after:left-0 hover:after:bottom-0 hover:after:w-full hover:after:h-[0.5px] hover:after:bg-[#1d3413]'
@@ -51,13 +51,13 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
       </button>
 
       {/* Block 2: Navigation */}
-      <div className="flex flex-col md:flex-row items-center flex-wrap md:absolute md:left-1/2 md:-translate-x-1/2" style={{ gap: SPACING.gap.default }}>
+      <div className="flex flex-col md:flex-row items-center flex-wrap md:absolute md:left-1/2 md:-translate-x-1/2 gap-6 md:gap-8 pointer-events-none">
         {menuItems.map((item) => (
           <button
             key={item.id}
             onClick={() => onNavigate(item.id)}
             className={`
-              transition-none outline-none relative text-center grid place-items-center after:transition-all after:duration-300
+              transition-none outline-none relative text-center grid place-items-center after:transition-all after:duration-300 pointer-events-auto
               ${currentPage === item.id
                 ? ''
                 : item.id === 'about'
@@ -99,7 +99,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
       <WannaTalk
         onNavigate={onNavigate}
         isActive={currentPage === 'contact'}
-        className={`md:relative md:w-auto md:bottom-auto md:left-auto md:bg-transparent md:block
+        className={`md:relative md:w-auto md:bottom-auto md:left-auto md:bg-transparent md:block pointer-events-auto
           ${(currentPage === 'study' || currentPage === 'home' || currentPage === 'observe' || currentPage === 'work' || currentPage === 'contact') ? 'hidden md:block' : 'fixed bottom-0 left-0 w-full flex bg-[#faf7f3]'}
         `}
       />

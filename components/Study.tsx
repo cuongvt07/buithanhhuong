@@ -11,8 +11,8 @@ const Study: React.FC<StudyProps> = ({ onNavigate }) => {
     {
       text: "Teeter-totter wall - designing for human connection rights",
       image: "images/image1.png",
-      width: "291px",
-      height: "199px"
+      width: "232px",
+      height: "158px"
     },
     {
       text: "Missing bullet holes of fighters - a classic data analysis case study",
@@ -32,23 +32,33 @@ const Study: React.FC<StudyProps> = ({ onNavigate }) => {
   const mobileGems = [...gems, ...gems, ...gems, ...gems];
 
   return (
-    <section className="w-full md:h-full min-h-screen relative overflow-hidden flex-grow flex flex-col md:block">
-      {/* Container anchored to bottom on desktop, stacked on mobile */}
-      <div className="relative md:absolute bottom-0 left-0 w-full flex flex-col items-center justify-start md:justify-end z-10 pointer-events-none pb-0 md:pb-0">
-        {/* Label: Pushed up by list with 32px gap */}
+    <section className="w-full md:h-screen min-h-screen relative overflow-hidden flex-grow flex flex-col md:block">
+      {/* Desktop: Centered Label */}
+      <div className="hidden md:flex fixed top-1/2 left-0 w-full -translate-y-1/2 items-center justify-center pointer-events-none z-10">
         <SectionLabel
           text="gems"
           width="192px"
           mobileWidth="192px"
-          className="absolute pointer-events-auto md:mt-0"
-          style={{ position: 'relative', transform: 'none', left: 'auto', top: 'auto' }}
         />
+      </div>
 
-        {/* Gap of 32px */}
-        <div className="h-[32px]"></div>
+      {/* Main Container: Anchored to bottom on desktop, stacked on mobile */}
+      <div className="relative md:fixed bottom-0 left-0 w-full flex flex-col items-center justify-start md:justify-end z-10 pointer-events-none">
+
+        {/* MOBILE VIEW ONLY: Label pushed up by list with 32px gap */}
+        <div className="md:hidden flex flex-col items-center">
+          <SectionLabel
+            text="gems"
+            width="192px"
+            mobileWidth="192px"
+            className="relative pointer-events-auto"
+            style={{ position: 'relative', transform: 'none', left: 'auto', top: 'auto' }}
+          />
+          <div className="h-[32px]"></div>
+        </div>
 
         {/* List: Bottom block with padding */}
-        <div className="w-full text-center px-0 md:px-4 py-8 md:p-[120px_32px_120px_32px] pointer-events-auto overflow-hidden md:overflow-visible">
+        <div className="w-full text-center px-0 md:px-4 py-8 md:p-[120px_32px_32px_32px] pointer-events-auto overflow-hidden md:overflow-visible">
 
           {/* MOBILE VIEW: Horizontal Infinite Scroll */}
           <div className="flex md:hidden flex-row flex-nowrap gap-8 items-start overflow-x-auto snap-x snap-mandatory px-8 w-full scrollbar-hide pb-8">
