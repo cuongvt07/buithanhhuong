@@ -2,93 +2,63 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bùi Thanh Hương | Professional Portfolio</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&display=swap"
-    rel="stylesheet">
-  <style>
-    :root {
-      --brand-green: rgb(29, 52, 19);
-      --bg-color: rgb(250, 247, 243);
-    }
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Framer 8e1ebfe">
+    <title>Thanh Huong Bui's site</title>
+    <meta name="description" content="in the clouds">
 
-    body {
-      font-family: 'STIX Two Text', serif;
-      background-color: var(--bg-color);
-      color: var(--brand-green);
-      overflow: hidden;
-      margin: 0;
-      padding: 0;
-    }
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Thanh Huong Bui's site">
+    <meta property="og:description" content="in the clouds">
+    <meta property="og:image" content="https://framerusercontent.com/assets/a8W9liNt79Iw4guqTrNTRYX9LHs.jpg">
 
-    .font-dongle {
-      font-family: 'Dongle', sans-serif;
-    }
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Thanh Huong Bui's site">
+    <meta name="twitter:description" content="in the clouds">
+    <meta name="twitter:image" content="https://framerusercontent.com/assets/a8W9liNt79Iw4guqTrNTRYX9LHs.jpg">
 
-    .font-stix {
-      font-family: 'STIX Two Text', serif;
-    }
+    <link href="https://framerusercontent.com/images/qB23WRK8Z3upzNE02AwgzSMbFg.png" rel="icon" media="(prefers-color-scheme: light)">
+    <link href="https://framerusercontent.com/images/qB23WRK8Z3upzNE02AwgzSMbFg.png" rel="icon" media="(prefers-color-scheme: dark)">
+    <link rel="apple-touch-icon" href="https://framerusercontent.com/images/OLcfRL77OIW2UIoW3T4pTuo4eFQ.png">
 
-    /* Global H1 Style from Framer specification */
-    .hero-title {
-      font-family: "Dongle", "Dongle Placeholder", sans-serif;
-      font-size: 125px;
-      font-weight: 300;
-      line-height: 0.6em;
-      color: var(--brand-green);
-      text-transform: uppercase;
-      margin: 0;
-    }
+    <script src="https://cdn.tailwindcss.com"></script>
 
-    html,
-    body {
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&family=Inter+Display:ital,wght@0,100..900;1,100..900&family=Inter:ital,wght@0,100..900;1,100..900&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
 
-    ::-webkit-scrollbar {
-      display: none;
-    }
+    <!-- Microsoft Clarity -->
+    <script async="" src="https://scripts.clarity.ms/0.8.47/clarity.js"></script>
+    <script async="" src="https://www.clarity.ms/tag/l1man01cid"></script>
 
-    ::selection {
-      background: var(--brand-green);
-      color: #ffffff;
-    }
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-WNMH4ECNGD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WNMH4ECNGD');
+    </script>
+    
+    <style>
+      /* Fallback for Framer script if needed, though mostly handled by index.css */
+    </style>
 
-    main {
-      height: 100vh;
-      width: 100vw;
-      overflow: hidden;
-    }
+    <link rel="stylesheet" href="index.css">
 
-    .light-leak {
-      position: absolute;
-      width: 549px;
-      height: 590px;
-      background-image: url('https://framerusercontent.com/images/ZDlZOMVyWI5PVxF0Wfa9wUxJqw.png?width=549&height=590');
-      background-size: contain;
-      background-repeat: no-repeat;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.8;
+    <script type="importmap">
+    {
+      "imports": {
+        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+        "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+        "react/": "https://esm.sh/react@^19.2.3/",
+        "react": "https://esm.sh/react@^19.2.3"
+      }
     }
-  </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3"
-  }
-}
-</script>
-  <link rel="stylesheet" href="index.css">
+    </script>
 </head>
 
 <body>
