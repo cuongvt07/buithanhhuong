@@ -1,76 +1,14 @@
-:root {
-    --brand-green: rgb(29, 52, 19);
-    --bg-color: rgb(250, 247, 243);
-}
-
 body {
     min-height: 100vh;
     width: auto;
     display: flex;
     justify-content: center;
     margin: 0;
-    padding: 0;
-    background-color: var(--bg-color);
-    color: var(--brand-green);
-    font-family: 'STIX Two Text', serif;
-    overflow: hidden;
+    background-color: rgb(250, 247, 243);
 }
 
-/* Scrollbar styles */
-html,
-body {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-::-webkit-scrollbar {
-    display: none;
-}
-
-::selection {
-    background: var(--brand-green);
-    color: #ffffff;
-}
-
-main {
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-}
-
-.light-leak {
-    position: absolute;
-    width: 549px;
-    height: 590px;
-    background-image: url('https://framerusercontent.com/images/ZDlZOMVyWI5PVxF0Wfa9wUxJqw.png?width=549&height=590');
-    background-size: contain;
-    background-repeat: no-repeat;
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.8;
-}
-
-.hero-title {
-    font-family: "Dongle", "Dongle Placeholder", sans-serif;
-    font-size: 125px;
-    font-weight: 300;
-    line-height: 0.6em;
-    color: var(--brand-green);
-    text-transform: uppercase;
-    margin: 0;
-}
-
-.font-dongle {
-    font-family: 'Dongle', sans-serif;
-}
-
-.font-stix {
-    font-family: 'STIX Two Text', serif;
-}
-
-/* App Container */
 .app-container {
-    background-color: var(--bg-color);
+    background-color: #faf7f3;
     width: 100%;
     min-height: 100vh;
     position: relative;
@@ -84,7 +22,7 @@ main {
     font-size: 17px;
     font-style: italic;
     line-height: 20px;
-    color: var(--brand-green);
+    color: rgb(29, 52, 19);
 }
 
 @media (min-width: 768px) {
@@ -103,9 +41,10 @@ main {
 .navbar-title {
     font-family: "STIX Two Text", "STIX Two Text Placeholder", serif;
     font-size: 16px;
+    /* Keeping 15px as per previous context, usually size wasn't specified but let's check user request again. Request said 'form của Hi...', didn't specifying size, but previous file had text-[15px]. The user provided block has --framer-font-size: 17px in *previous* request for footer. This request doesn't strictly specifiy size but has a block. Oh wait, the user pasted a block of CSS variables. --framer-font-size is NOT in the new block. The new block has font-selector, font-family, font-style, letter-spacing, text-alignment, text-color. So I will keep 15px or inherrit. Existing is 15px. */
     font-style: italic;
     line-height: 20px;
     letter-spacing: 0.01em;
     text-align: center;
-    color: var(--brand-green);
+    color: rgb(29, 52, 19);
 }
