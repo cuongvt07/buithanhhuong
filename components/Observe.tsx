@@ -35,7 +35,7 @@ const Observe: React.FC<ObserveProps> = ({ onNavigate }) => {
   ];
 
   return (
-    <section className="flex-1 w-full md:h-screen min-h-screen flex flex-col items-center px-4 md:px-6 pb-24 md:pb-[20px] relative overflow-hidden">
+    <section className="flex-1 w-full md:h-screen min-h-screen flex flex-col items-center px-0 md:px-6 pb-24 md:pb-[20px] relative overflow-hidden">
       {/* Section Label (Mobile: Centered, Desktop: Centered Fixed) */}
       <div className="md:hidden w-full flex justify-center">
         <SectionLabel
@@ -59,7 +59,7 @@ const Observe: React.FC<ObserveProps> = ({ onNavigate }) => {
         <div className="relative w-full md:w-max md:ml-[120px] md:p-[32px_42px] pointer-events-auto">
 
           {/* Actual Content - Left aligned items within a centered block */}
-          <div className="flex flex-col gap-8 md:gap-[16px] px-4 md:px-0 py-0 w-full items-center md:items-start">
+          <div className="flex flex-col gap-8 md:gap-[16px] px-0 md:px-0 py-0 w-full items-center md:items-start">
             {thoughts.map((item, i) => (
               <div
                 key={i}

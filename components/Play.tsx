@@ -228,7 +228,7 @@ const Play: React.FC = () => {
     <div className="w-full h-screen bg-[#FAF7F3] relative overflow-hidden">
 
       {/* Mobile Vertical Layout */}
-      <div className="md:hidden w-full h-full overflow-y-auto pt-20 pb-24 px-4 flex flex-col items-center gap-8">
+      <div className="md:hidden w-full h-full overflow-y-auto pt-20 pb-24 px-0 flex flex-col items-center gap-8">
         {PLAY_IMAGES.map((config) => (
           <div key={config.id} className="w-full flex justify-center">
             <img
