@@ -44,7 +44,7 @@ const Contact: React.FC<ContactProps> = ({ onNavigate }) => {
     ];
 
     return (
-        <section className="flex-1 w-full flex flex-col items-center relative md:overflow-hidden overflow-y-auto md:justify-end">
+        <section className="flex-1 w-full flex flex-col items-center relative md:overflow-hidden md:justify-end">
             {/* Desktop Left Side (Absolute) */}
             <div className="hidden md:flex absolute left-[0px] flex-col gap-[23px] items-start">
                 <SectionLabel
