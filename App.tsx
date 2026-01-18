@@ -9,6 +9,7 @@ import Work from './components/Work';
 import Play from './components/Play';
 import Contact from './components/Contact';
 import FloatingAI from './components/FloatingAI';
+import ScrollToTop from './components/ScrollToTop';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<string>('home');
@@ -49,6 +50,7 @@ const App: React.FC = () => {
         ${currentPage === 'home' ? 'md:overflow-hidden overflow-y-auto' : 'overflow-y-auto'} no-scrollbar`}>
         {renderPage()}
       </main>
+      <ScrollToTop />
     </div>
   );
 };
