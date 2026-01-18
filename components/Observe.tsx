@@ -1,10 +1,13 @@
 import React from 'react';
 import SectionLabel from './SectionLabel';
 import WannaTalk from './WannaTalk';
+import ThoughtDetailModal from './ThoughtDetail';
 
 interface ObserveProps {
   onNavigate: (page: string) => void;
 }
+
+
 
 const Observe: React.FC<ObserveProps> = ({ onNavigate }) => {
   // Mobile-specific interfaces
@@ -17,6 +20,8 @@ const Observe: React.FC<ObserveProps> = ({ onNavigate }) => {
       y: number;
     };
   }
+
+  const [selectedThought, setSelectedThought] = React.useState<ThoughtConfig | null>(null);
 
   const thoughts: ThoughtConfig[] = [
     {
@@ -56,10 +61,10 @@ const Observe: React.FC<ObserveProps> = ({ onNavigate }) => {
           {/* Actual Content - Left aligned items within a centered block */}
           <div className="flex flex-col gap-8 md:gap-[16px] px-4 md:px-0 py-0 w-full items-center md:items-start">
             {thoughts.map((item, i) => (
-              <a
+              <div
                 key={i}
-                href="#"
-                className="group relative flex flex-row md:block items-end md:items-start text-[16px] font-stix text-[#1d3413] leading-[20px] cursor-help w-full md:w-fit mx-0 md:mx-0 gap-[24px] md:gap-0"
+                onClick={() => setSelectedThought(item)}
+                className="group relative flex flex-row md:block items-end md:items-start text-[16px] font-stix text-[#1d3413] leading-[20px] cursor-pointer w-full md:w-fit mx-0 md:mx-0 gap-[24px] md:gap-0 hover:opacity-80 transition-opacity"
               >
                 {/* Mobile Image: Left side, static */}
                 {item.image && (
@@ -110,7 +115,7 @@ const Observe: React.FC<ObserveProps> = ({ onNavigate }) => {
                     />
                   </div>
                 )}
-              </a>
+              </div>
             ))}
           </div>
 
@@ -122,6 +127,12 @@ const Observe: React.FC<ObserveProps> = ({ onNavigate }) => {
           </div>
         </div>
       </div>
+
+      <ThoughtDetailModal
+        isOpen={!!selectedThought}
+        onClose={() => setSelectedThought(null)}
+        data={selectedThought}
+      />
     </section>
   );
 };
