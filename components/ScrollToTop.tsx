@@ -1,35 +1,42 @@
 import React from 'react';
 
-const ScrollToTop: React.FC = () => {
+interface ScrollToTopProps {
+    containerRef?: React.RefObject<HTMLElement>;
+    className?: string; // Optional className to allow positioning overrides
+}
+
+const ScrollToTop: React.FC<ScrollToTopProps> = ({ containerRef, className }) => {
     const [isVisible, setIsVisible] = React.useState(false);
 
     React.useEffect(() => {
+        const getContainer = () => containerRef?.current || document.querySelector('main');
+
         const checkScroll = () => {
-            const mainElement = document.querySelector('main');
-            if (mainElement) {
+            const container = getContainer();
+            if (container) {
                 // Show button if scrolled down more than 200px
-                setIsVisible(mainElement.scrollTop > 200);
+                setIsVisible(container.scrollTop > 200);
             }
         };
 
-        const mainElement = document.querySelector('main');
-        if (mainElement) {
-            mainElement.addEventListener('scroll', checkScroll);
-            // Check initially in case we land on a scrolled position
+        const container = getContainer();
+        if (container) {
+            container.addEventListener('scroll', checkScroll);
+            // Check initially
             checkScroll();
         }
 
         return () => {
-            if (mainElement) {
-                mainElement.removeEventListener('scroll', checkScroll);
+            if (container) {
+                container.removeEventListener('scroll', checkScroll);
             }
         };
-    }, []);
+    }, [containerRef]);
 
     const scrollToTop = () => {
-        const mainElement = document.querySelector('main');
-        if (mainElement) {
-            mainElement.scrollTo({
+        const container = containerRef?.current || document.querySelector('main');
+        if (container) {
+            container.scrollTo({
                 top: 0,
                 behavior: 'smooth',
             });
@@ -40,7 +47,7 @@ const ScrollToTop: React.FC = () => {
         <button
             onClick={scrollToTop}
             className={`fixed bottom-[13px] right-4 md:hidden z-[9999] bg-white shadow-[0_4px_20px_rgba(0,0,0,0.1)] cursor-pointer active:scale-95 transition-all duration-300 flex items-center justify-center p-0 ${isVisible ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-10 pointer-events-none'
-                }`}
+                } ${className || ''}`}
             aria-label="Scroll to top"
             style={{
                 padding: '32px 24px', // Explicit padding as requested

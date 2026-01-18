@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 import { DEFAULT_ARTICLE, ContentBlock } from '../data/thought-content';
+import ScrollToTop from './ScrollToTop';
 
 interface ThoughtInfo {
     text: string;
@@ -21,10 +22,13 @@ const ThoughtDetailContent: React.FC<{ data: ThoughtInfo; onClose: () => void }>
     // The structure itself provides the behavior:
     // Scroll Container (100vh) -> spacers (15vh) + content
 
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+
     return (
         <>
             {/* Scrollable Overlay Container */}
             <motion.div
+                ref={scrollContainerRef}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -157,6 +161,9 @@ const ThoughtDetailContent: React.FC<{ data: ThoughtInfo; onClose: () => void }>
                     <div className="h-[15vh] w-full shrink-0" />
                 </div>
             </motion.div>
+
+            {/* Internal ScrollToTop Button */}
+            <ScrollToTop containerRef={scrollContainerRef} />
 
             <style>{`
         @font-face {
