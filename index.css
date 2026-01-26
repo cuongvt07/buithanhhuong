@@ -44,3 +44,12 @@ body {
     text-align: center;
     color: rgb(29, 52, 19);
 }
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

@@ -1,26 +1,28 @@
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import WannaTalk from './WannaTalk';
 import { COLORS, TYPOGRAPHY, SPACING } from '../config/designTokens';
 
 interface NavbarProps {
   currentPage: string;
-  onNavigate: (page: string) => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
+const Navbar: React.FC<NavbarProps> = ({ currentPage }) => {
+  const navigate = useNavigate();
+
   const menuItems = [
-    { id: 'about', label: 'I' },
-    { id: 'study', label: 'study' },
-    { id: 'observe', label: 'observe' },
-    { id: 'work', label: 'and experiment' }
+    { id: 'about', label: 'I', path: '/about' },
+    { id: 'study', label: 'study', path: '/study' },
+    { id: 'observe', label: 'observe', path: '/observe' },
+    { id: 'work', label: 'and experiment', path: '/and-experiment' }
   ];
 
   return (
-    <nav className="relative top-0 left-0 z-50 px-[24px] pt-[32px] pb-[24px] md:py-[32px] flex md:flex-row flex-col md:justify-between md:items-center items-center bg-transparent pointer-events-none w-full" style={{ gap: SPACING.gap.default }}>
+    <nav className="relative top-0 left-0 z-50 px-[24px] pt-[32px] pb-[24px] md:py-[32px] flex md:flex-row flex-col md:justify-between md:items-center items-center bg-transparent pointer-events-none w-full h-[21px]" style={{ gap: SPACING.gap.default }}>
       {/* Block 1: Intro text */}
       <button
-        onClick={() => onNavigate('home')}
+        onClick={() => navigate('/hi')}
         className={`
           relative transition-none outline-none after:transition-all after:duration-300 pointer-events-auto
           ${currentPage === 'home'
@@ -55,7 +57,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
         {menuItems.map((item) => (
           <button
             key={item.id}
-            onClick={() => onNavigate(item.id)}
+            onClick={() => navigate(item.path)}
             className={`
               transition-none outline-none relative text-center grid place-items-center after:transition-all after:duration-300 pointer-events-auto
               ${currentPage === item.id
@@ -97,7 +99,6 @@ const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
 
       {/* Block 3: CTA */}
       <WannaTalk
-        onNavigate={onNavigate}
         isActive={currentPage === 'contact'}
         className={`md:relative md:w-auto md:bottom-auto md:left-auto md:bg-transparent md:block pointer-events-auto
           ${(currentPage === 'study' || currentPage === 'home' || currentPage === 'observe' || currentPage === 'work' || currentPage === 'contact') ? 'hidden md:block' : 'fixed bottom-0 left-0 w-full flex bg-[#faf7f3]'}

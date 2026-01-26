@@ -3,16 +3,15 @@ import SectionLabel from './SectionLabel';
 import WannaTalk from './WannaTalk';
 
 interface StudyProps {
-  onNavigate: (page: string) => void;
 }
 
-const Study: React.FC<StudyProps> = ({ onNavigate }) => {
+const Study: React.FC<StudyProps> = () => {
   const gems = [
     {
       text: "Teeter-totter wall - designing for human connection rights",
       image: "images/image1.png",
-      width: "232px",
-      height: "158px"
+      width: "256px",
+      height: "175px"
     },
     {
       text: "Missing bullet holes of fighters - a classic data analysis case study",
@@ -112,7 +111,7 @@ const Study: React.FC<StudyProps> = ({ onNavigate }) => {
 
         {/* Mobile "Wanna Talk" - Integrated in flow */}
         <div className="md:hidden w-full pointer-events-auto bg-[#faf7f3]">
-          <WannaTalk onNavigate={onNavigate} />
+          <WannaTalk />
         </div>
       </div>
     </section>

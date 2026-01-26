@@ -1,14 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { COLORS, TYPOGRAPHY } from '../config/designTokens';
 
 interface WannaTalkProps {
-    onNavigate: (page: string) => void;
     className?: string;
     style?: React.CSSProperties;
     isActive?: boolean;
 }
 
-const WannaTalk: React.FC<WannaTalkProps> = ({ onNavigate, className = '', style = {}, isActive = false }) => {
+const WannaTalk: React.FC<WannaTalkProps> = ({ className = '', style = {}, isActive = false }) => {
+    const navigate = useNavigate();
     return (
         <div
             className={`z-50 flex justify-center py-[32px] md:py-0 ${className}`}
@@ -17,7 +18,7 @@ const WannaTalk: React.FC<WannaTalkProps> = ({ onNavigate, className = '', style
             }}
         >
             <button
-                onClick={() => onNavigate('contact')}
+                onClick={() => navigate('/contact')}
                 className={`
                     relative transition-none outline-none after:transition-all after:duration-300
                     ${isActive

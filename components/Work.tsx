@@ -1,29 +1,70 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { FreeMode, Mousewheel, Keyboard } from 'swiper/modules';
+import type { Swiper as SwiperType } from 'swiper';
+import { FreeMode, Keyboard } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/free-mode';
 
 import WannaTalk from './WannaTalk';
 
-interface WorkProps {
-  onNavigate: (page: string) => void;
-}
-
-const Work: React.FC<WorkProps> = ({ onNavigate }) => {
+const Work: React.FC = () => {
   const originalProjects = [
     { title: 'vgbc', img: 'images/2.avif', scale: 0.1, marginRight: 85 },
     { title: 'a seal imprint', img: 'images/3.avif', scale: 0.07, marginRight: 155 },
     { title: 'vnielts', img: 'images/4.avif', scale: 0.15, marginRight: 120 },
     { title: 'fishy feast', img: 'images/5.avif', scale: 0.05, marginRight: 30 },
-    { title: 'What color was your day?', img: 'images/6.avif', scale: 0.07, marginRight: 80 },
+    { title: 'what color was your day?', img: 'images/6.avif', scale: 0.07, marginRight: 80 },
     { title: 'vici dentia', img: 'images/7.avif', scale: 0.18, marginRight: 100 },
     { title: 'kickstart', img: 'images/8.png', scale: 0.1, marginRight: 50 },
     { title: 'thêu một mùa thu', img: 'images/1.avif', scale: 0.1, marginRight: 110 },
   ];
 
-  const projects = Array(10).fill(originalProjects).flat();
+  const projects = Array(20).fill(originalProjects).flat();
+  const swiperRef = useRef<SwiperType | null>(null);
+  const velocity = useRef(0);
+  const raf = useRef<number | null>(null);
+
+  useEffect(() => {
+    const onWheel = (e: WheelEvent) => {
+      // Allow vertical scroll to propagate if swiper is at edges or if user intended vertical
+      if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) {
+        // e.preventDefault(); // Un-comment if full lock is desired
+        velocity.current += e.deltaY * 0.25;
+
+        if (!raf.current) run();
+      }
+    };
+
+    const run = () => {
+      if (!swiperRef.current) return;
+
+      const currentTranslate = swiperRef.current.getTranslate();
+      swiperRef.current.setTranslate(currentTranslate - velocity.current);
+
+      // sync internal swiper progress/index
+      swiperRef.current.updateProgress();
+
+      // Trigger loop wrap-around if needed
+      swiperRef.current.loopFix();
+
+      velocity.current *= 0.95; // Inertia (Smooth glide)
+
+      if (Math.abs(velocity.current) > 0.1) {
+        raf.current = requestAnimationFrame(run);
+      } else {
+        velocity.current = 0;
+        raf.current = null;
+      }
+    };
+
+    // Use a container or window check
+    window.addEventListener('wheel', onWheel, { passive: false });
+    return () => {
+      window.removeEventListener('wheel', onWheel);
+      if (raf.current) cancelAnimationFrame(raf.current);
+    };
+  }, []);
 
   return (
     <section className="h-auto md:min-h-0 md:h-screen mt-[20px] md:mt-0 py-0 md:pb-[30vh] px-0 w-full relative overflow-hidden flex flex-col md:justify-end">
@@ -49,27 +90,29 @@ const Work: React.FC<WorkProps> = ({ onNavigate }) => {
         </div>
 
         <Swiper
+          onSwiper={(s) => (swiperRef.current = s)}
           direction="horizontal"
           slidesPerView="auto"
           spaceBetween={0}
           loop={true}
           loopedSlides={8}
-          speed={800}
+          speed={600}
           grabCursor={true}
           freeMode={{
             enabled: true,
             momentum: true,
             momentumRatio: 0.8,
-            momentumVelocityRatio: 1,
+            momentumVelocityRatio: 1.2,
             momentumBounce: false,
+            sticky: false,
           }}
-          mousewheel={{
-            sensitivity: 1.2,
-            forceToAxis: false,
-          }}
+          mousewheel={false} // Custom wheel implementation above
           slidesOffsetBefore={32}
-          keyboard={true}
-          modules={[FreeMode, Mousewheel, Keyboard]}
+          keyboard={{
+            enabled: true,
+            onlyInViewport: true,
+          }}
+          modules={[FreeMode, Keyboard]}
           className="w-full h-full flex items-end swiper-work"
         >
           {projects.map((p, i) => (
@@ -104,7 +147,7 @@ const Work: React.FC<WorkProps> = ({ onNavigate }) => {
 
       {/* Mobile "Wanna Talk" - Integrated in flow - only visible on mobile */}
       <div className="md:hidden w-full pointer-events-auto bg-[#faf7f3]">
-        <WannaTalk onNavigate={onNavigate} />
+        <WannaTalk />
       </div>
     </section>
   );

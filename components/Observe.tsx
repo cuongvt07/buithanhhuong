@@ -4,12 +4,9 @@ import WannaTalk from './WannaTalk';
 import ThoughtDetailModal from './ThoughtDetail';
 
 interface ObserveProps {
-  onNavigate: (page: string) => void;
 }
 
-
-
-const Observe: React.FC<ObserveProps> = ({ onNavigate }) => {
+const Observe: React.FC<ObserveProps> = () => {
   // Mobile-specific interfaces
   interface ThoughtConfig {
     text: string;
@@ -64,7 +61,7 @@ const Observe: React.FC<ObserveProps> = ({ onNavigate }) => {
               <div
                 key={i}
                 onClick={() => setSelectedThought(item)}
-                className="group relative flex flex-row md:block items-end md:items-start text-[16px] font-stix text-[#1d3413] leading-[20px] cursor-pointer w-full md:w-fit mx-0 md:mx-0 gap-[24px] md:gap-0 hover:opacity-80 transition-opacity"
+                className="group relative flex flex-row md:block items-end md:items-start text-[16px] font-stix text-[#1d3413] leading-[20px] cursor-pointer w-full md:w-fit mx-0 md:mx-0 gap-[24px] md:gap-0 transition-opacity"
               >
                 {/* Mobile Image: Left side, static */}
                 {item.image && (
@@ -111,7 +108,7 @@ const Observe: React.FC<ObserveProps> = ({ onNavigate }) => {
                     <img
                       src={item.image.src}
                       alt={item.text}
-                      className="w-full h-auto object-cover opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] origin-left shadow-xl rounded-sm"
+                      className="w-full h-auto object-cover opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] origin-left rounded-sm"
                     />
                   </div>
                 )}
@@ -122,7 +119,7 @@ const Observe: React.FC<ObserveProps> = ({ onNavigate }) => {
           {/* Mobile "Wanna Talk" - Integrated in flow - only visible on mobile */}
           <div className="md:hidden w-full pointer-events-auto bg-[#faf7f3] mt-8 flex justify-center">
             <div className="w-full">
-              <WannaTalk onNavigate={onNavigate} />
+              <WannaTalk />
             </div>
           </div>
         </div>

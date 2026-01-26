@@ -5,10 +5,9 @@ import SectionLabel from './SectionLabel';
 import WannaTalk from './WannaTalk';
 
 interface ContactProps {
-    onNavigate: (page: string) => void;
 }
 
-const Contact: React.FC<ContactProps> = ({ onNavigate }) => {
+const Contact: React.FC<ContactProps> = () => {
     interface ContactConfig {
         label: string;
         text: string;
@@ -112,7 +111,7 @@ const Contact: React.FC<ContactProps> = ({ onNavigate }) => {
 
             {/* Mobile "Wanna Talk" - Integrated in flow - only visible on mobile */}
             <div className="md:hidden w-full pointer-events-auto bg-[#faf7f3] mt-12">
-                <WannaTalk onNavigate={onNavigate} />
+                <WannaTalk />
             </div>
         </section >
     );

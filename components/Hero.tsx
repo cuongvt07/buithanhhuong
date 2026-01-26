@@ -6,32 +6,29 @@ import SectionLabel from './SectionLabel';
 import WannaTalk from './WannaTalk';
 
 interface HeroProps {
-  onNavigate: (page: string) => void;
 }
 
-const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
+const Hero: React.FC<HeroProps> = () => {
+  // Helper to calculate style based on window width
+  const calculateStyle = () => {
+    if (typeof window === 'undefined') return { scale: 1, top: '50%' };
+    const width = window.innerWidth;
+    let scale = 1;
+    if (width >= 1440) {
+      scale = Math.min(1.2, 1 + (width - 1440) * (0.2 / 465));
+    }
+    return { scale, top: '50%' };
+  };
+
   // State for fluid scaling and positioning
-  const [heroStyle, setHeroStyle] = useState({ scale: 1, top: 'calc(50vh - 88px)' });
+  const [heroStyle, setHeroStyle] = useState(calculateStyle());
 
   useEffect(() => {
     const handleResize = () => {
-      const width = window.innerWidth;
-
-      if (width >= 1440) {
-        // Calculate fluid scale: 1.0 at 1440px -> 1.2 at 1905px
-        // Formula: 1 + (width - 1440) * (0.2 / 465)
-        const scale = Math.min(1.2, 1 + (width - 1440) * (0.2 / 465));
-
-        setHeroStyle({
-          scale: scale,
-          top: '50%'
-        });
-      } else {
-        setHeroStyle({ scale: 1, top: '50%' });
-      }
+      setHeroStyle(calculateStyle());
     };
 
-    // Initial calculation
+    // Initial calculation (just in case window wasn't available during state init)
     handleResize();
 
     window.addEventListener('resize', handleResize);
@@ -297,7 +294,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
 
       {/* Mobile "Wanna Talk" - Integrated in flow - only visible on mobile */}
       <div className="md:hidden w-full pointer-events-auto bg-[#faf7f3]">
-        <WannaTalk onNavigate={onNavigate} />
+        <WannaTalk />
       </div>
     </section>
   );

@@ -18,23 +18,23 @@ const About: React.FC = () => {
   ];
 
   return (
-    <section className="md:h-screen px-0 w-full relative overflow-hidden flex flex-col items-center">
-      <div className="w-full h-full relative">
+    <section className="min-h-screen md:h-screen px-0 w-full relative md:overflow-hidden flex flex-col items-center">
+      {/* Container to fill the section */}
+      <div className="w-full flex-1 relative flex flex-col">
 
-        {/* Group 1: Interests - Full Viewport Height for Vertical Centering */}
-        <div className="w-full md:absolute md:top-0 md:left-0 md:h-screen px-0 md:px-12 flex flex-col justify-start md:justify-center md:transform mb-10 md:mb-0 z-10">
+        {/* Group 1: Interests - Vertically Centered on Desktop (Fixed to Viewport) */}
+        <div className="w-full flex flex-col md:fixed md:inset-0 md:justify-center md:items-center px-0 md:px-12 z-10 mb-10 md:mb-0 pointer-events-none">
           <SectionLabel
             text="'m"
             width="84px"
             mobileWidth="84px"
-            className="md:absolute md:left-0 md:top-1/2 md:-translate-y-1/2 relative mb-8 md:mb-0 mx-auto md:mx-0"
+            className="md:fixed md:left-0 md:top-1/2 md:-translate-y-1/2 relative mb-8 md:mb-0 mx-auto md:mx-0 pointer-events-auto"
           />
 
           {/* Content Wrapper: Centered & Width-Matched to Hero */}
-          <div className="relative w-full md:w-fit mx-auto px-4 md:px-0">
+          <div className="relative w-full md:w-fit mx-auto px-4 md:px-0 pointer-events-auto">
             {/* Ghost to Set Width - Desktop Only */}
             <div className="hidden md:flex flex-col select-none w-full space-y-4 opacity-0 pointer-events-none h-0 overflow-hidden">
-              {/* ... Keep ghost content mostly as is, just wrapped in hidden md:flex ... */}
               <div className="w-full text-left ml-[340px]"><h1 className="hero-title">I WALK</h1></div>
               <div className="w-full text-left ml-[100px]"><h1 className="hero-title">THIS EARTH,</h1></div>
               <div className="w-full text-left ml-[280px] !mb-[10px]"><h1 className="hero-title">WATER THE FLOWERS,</h1></div>
@@ -61,16 +61,16 @@ const About: React.FC = () => {
           </div>
         </div>
 
-        {/* Group 2: History - Fixed to bottom via user requested structure */}
-        <div className="w-full md:absolute md:bottom-0 md:left-0 relative px-0 md:px-12 flex flex-col justify-start md:block shrink-0 z-20">
+        {/* Group 2: History - Fixed to bottom on Desktop */}
+        <div className="w-full flex-1 md:flex-none flex flex-col md:fixed md:bottom-0 md:left-0 md:w-full md:justify-end px-0 md:px-12 z-20 pb-[64px] md:pb-0 pointer-events-none">
           <SectionLabel
             text="drifted"
             width="112px"
             mobileWidth="112px"
-            className="section-label-container md:absolute md:left-0 md:bottom-0 md:translate-y-0 relative mb-8 md:mb-0 mx-auto md:mx-0"
+            className="md:fixed md:left-0 md:bottom-0 md:translate-y-0 relative mb-8 md:mb-0 mx-auto md:mx-0 pointer-events-auto"
           />
 
-          <div className="relative w-full md:w-fit mx-auto px-4 md:px-0">
+          <div className="relative w-full md:w-fit mx-auto px-4 md:px-0 pointer-events-auto">
             {/* Ghost (Identical Copy) - Desktop Only */}
             <div className="hidden md:flex flex-col select-none w-full space-y-4 opacity-0 pointer-events-none h-0 overflow-hidden">
               <div className="w-full text-left ml-[340px]"><h1 className="hero-title">I WALK</h1></div>
