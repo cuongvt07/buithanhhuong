@@ -20,8 +20,8 @@ const NavbarMobile: React.FC<NavbarMobileProps> = ({ currentPage, showWannaTalk 
 
     return (
         <nav
-            className="relative w-full px-[24px] pt-[32px] pb-[24px] flex flex-col items-center bg-transparent"
-            style={{ gap: SPACING.gap.default }}
+            className="relative w-full px-[24px] pt-[16px] pb-[16px] flex flex-col items-center bg-transparent"
+            style={{ gap: '16px' }}
         >
             {/* Block 1: Intro text */}
             <button

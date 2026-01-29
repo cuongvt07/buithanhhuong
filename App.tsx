@@ -81,32 +81,33 @@ const AppContent: React.FC = () => {
       </div>
 
       {/* Mobile Layout - NavbarMobile + Content + WannaTalk as unified block */}
-      <div className={`md:hidden flex flex-col h-screen ${isMobileScrollable ? 'overflow-y-auto' : 'overflow-hidden'}`}>
+      {/* Mobile Layout - NavbarMobile + Content + WannaTalk as unified block */}
+      <div className={`md:hidden flex flex-col fixed inset-0 z-50 bg-[#faf7f3] ${isMobileScrollable ? 'overflow-y-auto' : 'overflow-hidden'}`}>
         {/* Inner wrapper - contains all mobile content as unified block */}
         <div className="flex flex-col flex-1 min-h-0">
           <NavbarMobile currentPage={currentPage} showWannaTalk={false} />
 
           {/* Mobile Content + WannaTalk together */}
           <div className="flex-1 flex flex-col overflow-hidden">
-            <div className="flex-1 overflow-hidden">
-              <Routes>
-                <Route path="/" element={<Navigate to="/hi" replace />} />
-                <Route path="/hi" element={<Hero />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/study" element={<Study />} />
-                <Route path="/observe" element={<Observe />} />
-                <Route path="/and-experiment" element={<Work />} />
-                <Route path="/play" element={<Play />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="*" element={<Navigate to="/hi" replace />} />
-              </Routes>
-            </div>
+            <Routes>
+              <Route path="/" element={<Navigate to="/hi" replace />} />
+              <Route path="/hi" element={<Hero />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/study" element={<Study />} />
+              <Route path="/observe" element={<Observe />} />
+              <Route path="/and-experiment" element={<Work />} />
+              <Route path="/play" element={<Play />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="*" element={<Navigate to="/hi" replace />} />
+            </Routes>
+          </div>
 
-            {/* WannaTalk - inside content area */}
+          {/* WannaTalk - inside unified block, at bottom - hidden on Home page (handled by Hero) */}
+          {!['/', '/hi'].includes(location.pathname) && (
             <div className="w-full bg-[#faf7f3] shrink-0">
               <WannaTalk isActive={currentPage === 'contact'} />
             </div>
-          </div>
+          )}
         </div>
       </div>
 
@@ -138,7 +139,7 @@ const AppContent: React.FC = () => {
         </Routes>
       </main>
       <ScrollToTop />
-    </div>
+    </div >
   );
 };
 

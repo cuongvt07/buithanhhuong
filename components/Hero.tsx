@@ -164,15 +164,15 @@ const Hero: React.FC<HeroProps> = () => {
       </div>
 
       {/* Main hero text - responsive scaling */}
-      {/* Mobile Hero - 3 blocks: textLines (top), SectionLabel (bottom above WannaTalk) */}
-      <div className="w-full flex-1 flex flex-col items-center justify-between md:hidden z-40 pointer-events-none relative">
-        {/* Background Image for Mobile Text */}
+      {/* Mobile Hero Content Wrapper - Flex Column to stack 3 blocks: Text, Label, WannaTalk */}
+      <div className="w-full h-full flex flex-col justify-between items-center md:hidden z-40 pointer-events-none relative overflow-hidden py-[24px]">
+        {/* Absolute Background Layer */}
         <div className="absolute bottom-[120px] left-[25%] w-[400px] h-[400px] z-0 transform scale-[0.5] origin-bottom-left -rotate-[20deg] opacity-50">
           <img src={rainbowLightSticker286Url} alt="" className="w-full h-full object-contain" />
         </div>
 
-        {/* Block 1: textLines - at top */}
-        <div className="flex flex-col items-center gap-[5px] mt-[23px]">
+        {/* Block 1: TextLines - Fixed at Top */}
+        <div className="w-full flex flex-col items-center gap-[5px] shrink-0">
           <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '20px', color: COLORS.textPrimary }}>I walk this Earth,</span>
           <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '20px', color: COLORS.textPrimary }}>water the flowers,</span>
           <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '20px', color: COLORS.textPrimary }}>pat the little puppies,</span>
@@ -180,13 +180,20 @@ const Hero: React.FC<HeroProps> = () => {
           <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '20px', color: COLORS.textPrimary }}>read architecture news</span>
         </div>
 
-        {/* Block 2: SectionLabel - at bottom (just above WannaTalk) */}
-        <SectionLabel
-          text="or mostly just breathe"
-          width="205px"
-          mobileWidth="205px"
-          className="relative z-50 pointer-events-auto"
-        />
+        {/* Block 2: SectionLabel - Automatically centered by justify-between */}
+        <div className="w-full flex items-center justify-center pointer-events-auto">
+          <SectionLabel
+            text="or mostly just breathe"
+            width="205px"
+            mobileWidth="205px"
+            className="relative z-50 p-0"
+          />
+        </div>
+
+        {/* Block 3: WannaTalk - Fixed at Bottom */}
+        <div className="w-full flex justify-center pointer-events-auto shrink-0">
+          <WannaTalk isActive={false} />
+        </div>
       </div>
 
       {/* Main hero text - responsive scaling (Desktop/Tablet Only) */}

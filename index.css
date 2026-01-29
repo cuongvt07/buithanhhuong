@@ -27,12 +27,7 @@ body {
 
 
 
-@media (max-width: 809.98px) {
-    .app-container {
-        width: 375px;
-        height: 593px;
-    }
-}
+
 
 .navbar-title {
     font-family: "STIX Two Text", "STIX Two Text Placeholder", serif;

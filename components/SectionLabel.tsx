@@ -17,7 +17,6 @@ const SectionLabel: React.FC<SectionLabelProps> = ({ text, width = 'auto', mobil
             className={`section-label-container ${className}`}
             style={{
                 display: 'flex',
-                padding: '32px',
                 justifyContent: 'space-between',
                 alignItems: 'flex-end',
                 boxSizing: 'content-box',
@@ -29,6 +28,7 @@ const SectionLabel: React.FC<SectionLabelProps> = ({ text, width = 'auto', mobil
             <style>{`
         .section-label-container {
              width: var(--label-width);
+             padding: 24px;
         }
         .section-label-text {
           font-family: 'STIX Two Text', serif;
@@ -41,6 +41,12 @@ const SectionLabel: React.FC<SectionLabelProps> = ({ text, width = 'auto', mobil
         @media (max-width: ${BREAKPOINTS.tablet - 1}px) {
           .section-label-container {
              width: var(--label-mobile-width) !important;
+             padding: 16px !important;
+          }
+        }
+        @media (min-width: ${BREAKPOINTS.tablet}px) {
+          .section-label-container {
+             padding: 32px;
           }
         }
       `}</style>
