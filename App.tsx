@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import NavbarMobile from './components/NavbarMobile';
 import Hero from './components/Hero';
 import About from './components/About';
 import Study from './components/Study';
@@ -10,7 +11,21 @@ import Work from './components/Work';
 import Play from './components/Play';
 import Contact from './components/Contact';
 import ScrollToTop from './components/ScrollToTop';
+import WannaTalk from './components/WannaTalk';
 import Lenis from 'lenis';
+
+// Cấu hình scroll behavior cho mobile
+// Default: false (không scroll dọc)
+// true: cho phép scroll dọc
+const MOBILE_SCROLL_CONFIG: Record<string, boolean> = {
+  home: false,      // Hero - không scroll
+  about: true,      // About - scroll dọc
+  study: true,      // Study - scroll dọc
+  observe: true,    // Observe - scroll dọc
+  work: false,      // Work - không scroll dọc (scroll ngang)
+  play: true,       // Play - scroll dọc
+  contact: true,    // Contact - scroll dọc
+};
 
 const AppContent: React.FC = () => {
   const location = useLocation();
@@ -26,7 +41,7 @@ const AppContent: React.FC = () => {
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       wheelMultiplier: 0.6,
-      orientation: 'vertical', // We want to control vertical primarily here
+      orientation: 'vertical',
     });
 
     function raf(time: number) {
@@ -56,24 +71,59 @@ const AppContent: React.FC = () => {
   };
 
   const currentPage = getPageId(location.pathname);
+  const isMobileScrollable = MOBILE_SCROLL_CONFIG[currentPage] ?? false;
 
   return (
     <div className="app-container flex flex-col">
-      <Navbar currentPage={currentPage} />
+      {/* Desktop Navbar - hidden on mobile */}
+      <div className="hidden md:block">
+        <Navbar currentPage={currentPage} />
+      </div>
 
-      {/* Main container cho phép cuộn nội bộ nếu cần nhưng ẩn thanh cuộn */}
+      {/* Mobile Layout - NavbarMobile + Content + WannaTalk as unified block */}
+      <div className={`md:hidden flex flex-col h-screen ${isMobileScrollable ? 'overflow-y-auto' : 'overflow-hidden'}`}>
+        {/* Inner wrapper - contains all mobile content as unified block */}
+        <div className="flex flex-col flex-1 min-h-0">
+          <NavbarMobile currentPage={currentPage} showWannaTalk={false} />
+
+          {/* Mobile Content + WannaTalk together */}
+          <div className="flex-1 flex flex-col overflow-hidden">
+            <div className="flex-1 overflow-hidden">
+              <Routes>
+                <Route path="/" element={<Navigate to="/hi" replace />} />
+                <Route path="/hi" element={<Hero />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/study" element={<Study />} />
+                <Route path="/observe" element={<Observe />} />
+                <Route path="/and-experiment" element={<Work />} />
+                <Route path="/play" element={<Play />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="*" element={<Navigate to="/hi" replace />} />
+              </Routes>
+            </div>
+
+            {/* WannaTalk - inside content area */}
+            <div className="w-full bg-[#faf7f3] shrink-0">
+              <WannaTalk isActive={currentPage === 'contact'} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      {/* Desktop Main Container */}
       <style>{`
         @media (max-width: 767px) {
-          main {
-            width: 100% !important;
+          .desktop-main {
+            display: none !important;
           }
         }
       `}</style>
       <main
         ref={mainRef}
-        className={`flex-1 flex flex-col 
+        className={`desktop-main flex-1 flex-col hidden md:flex
         pt-0 ${['home', 'work', 'play', 'study', 'observe', 'about'].includes(currentPage) ? 'md:pt-0' : 'md:pt-[84px]'}
-        ${currentPage === 'home' ? 'md:overflow-hidden overflow-y-auto' : 'overflow-y-auto'} no-scrollbar`}
+        ${currentPage === 'home' ? 'md:overflow-hidden' : 'overflow-y-auto'} no-scrollbar`}
       >
         <Routes>
           <Route path="/" element={<Navigate to="/hi" replace />} />
@@ -84,7 +134,6 @@ const AppContent: React.FC = () => {
           <Route path="/and-experiment" element={<Work />} />
           <Route path="/play" element={<Play />} />
           <Route path="/contact" element={<Contact />} />
-          {/* Fallback to /hi */}
           <Route path="*" element={<Navigate to="/hi" replace />} />
         </Routes>
       </main>

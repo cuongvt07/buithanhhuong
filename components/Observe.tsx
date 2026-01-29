@@ -115,13 +115,6 @@ const Observe: React.FC<ObserveProps> = () => {
               </div>
             ))}
           </div>
-
-          {/* Mobile "Wanna Talk" - Integrated in flow - only visible on mobile */}
-          <div className="md:hidden w-full pointer-events-auto bg-[#faf7f3] mt-8 flex justify-center">
-            <div className="w-full">
-              <WannaTalk />
-            </div>
-          </div>
         </div>
       </div>
 
@@ -135,3 +128,4 @@ const Observe: React.FC<ObserveProps> = () => {
 };
 
 export default Observe;
+

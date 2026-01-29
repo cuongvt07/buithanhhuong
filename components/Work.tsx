@@ -160,10 +160,6 @@ const Work: React.FC = () => {
         </Swiper>
       </div>
 
-      {/* Mobile "Wanna Talk" - Integrated in flow - only visible on mobile */}
-      <div className="md:hidden w-full pointer-events-auto bg-[#faf7f3]">
-        <WannaTalk />
-      </div>
     </section>
   );
 };

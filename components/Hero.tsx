@@ -104,16 +104,19 @@ const Hero: React.FC<HeroProps> = () => {
 
   return (
     <section
-      className="w-full overflow-hidden relative hero-mobile-height"
+      className="w-full overflow-hidden relative hero-mobile-height flex flex-col"
       style={{
-        height: 'calc(100vh - 90px)',
         backgroundColor: COLORS.bgPrimary
       }}
     >
       <style>{`
-        @media (max-width: ${BREAKPOINTS.tablet - 1}px) {
+        .hero-mobile-height {
+          flex: 1;
+        }
+        @media (min-width: ${BREAKPOINTS.tablet}px) {
           .hero-mobile-height {
-            height: auto !important;
+            height: calc(100vh - 90px);
+            flex: none;
           }
         }
       `}</style>
@@ -161,24 +164,28 @@ const Hero: React.FC<HeroProps> = () => {
       </div>
 
       {/* Main hero text - responsive scaling */}
-      {/* Mobile Hero Text - Simple & Centered - Natural Flow */}
-      <div className="w-full flex flex-col items-center justify-center md:hidden z-40 pointer-events-none gap-[5px] relative py-20">
+      {/* Mobile Hero - 3 blocks: textLines (top), SectionLabel (bottom above WannaTalk) */}
+      <div className="w-full flex-1 flex flex-col items-center justify-between md:hidden z-40 pointer-events-none relative">
         {/* Background Image for Mobile Text */}
         <div className="absolute bottom-[120px] left-[25%] w-[400px] h-[400px] z-0 transform scale-[0.5] origin-bottom-left -rotate-[20deg] opacity-50">
           <img src={rainbowLightSticker286Url} alt="" className="w-full h-full object-contain" />
         </div>
 
-        <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '20px', color: COLORS.textPrimary }}>I walk this Earth,</span>
-        <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '20px', color: COLORS.textPrimary }}>water the flowers,</span>
-        <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '20px', color: COLORS.textPrimary }}>pat the little puppies,</span>
-        <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '20px', color: COLORS.textPrimary }}>sew, grow rice, and</span>
-        <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '20px', color: COLORS.textPrimary }}>read architecture news</span>
+        {/* Block 1: textLines - at top */}
+        <div className="flex flex-col items-center gap-[5px] mt-[23px]">
+          <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '20px', color: COLORS.textPrimary }}>I walk this Earth,</span>
+          <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '20px', color: COLORS.textPrimary }}>water the flowers,</span>
+          <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '20px', color: COLORS.textPrimary }}>pat the little puppies,</span>
+          <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '20px', color: COLORS.textPrimary }}>sew, grow rice, and</span>
+          <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '20px', color: COLORS.textPrimary }}>read architecture news</span>
+        </div>
 
+        {/* Block 2: SectionLabel - at bottom (just above WannaTalk) */}
         <SectionLabel
           text="or mostly just breathe"
           width="205px"
           mobileWidth="205px"
-          className="relative mt-[72px] z-50 pointer-events-auto"
+          className="relative z-50 pointer-events-auto"
         />
       </div>
 
@@ -292,10 +299,6 @@ const Hero: React.FC<HeroProps> = () => {
         </div>
       </div>
 
-      {/* Mobile "Wanna Talk" - Integrated in flow - only visible on mobile */}
-      <div className="md:hidden w-full pointer-events-auto bg-[#faf7f3]">
-        <WannaTalk />
-      </div>
     </section>
   );
 };

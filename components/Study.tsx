@@ -108,11 +108,6 @@ const Study: React.FC<StudyProps> = () => {
             ))}
           </div>
         </div>
-
-        {/* Mobile "Wanna Talk" - Integrated in flow */}
-        <div className="md:hidden w-full pointer-events-auto bg-[#faf7f3]">
-          <WannaTalk />
-        </div>
       </div>
     </section>
   );
