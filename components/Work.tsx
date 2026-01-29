@@ -22,47 +22,63 @@ const Work: React.FC = () => {
 
   const projects = Array(20).fill(originalProjects).flat();
   const swiperRef = useRef<SwiperType | null>(null);
-  const velocity = useRef(0);
-  const raf = useRef<number | null>(null);
 
   useEffect(() => {
+    let velocityTracker = 0;
+    let lastTime = Date.now();
+    let animationFrame: number;
+
+    const smoothScroll = () => {
+      if (!swiperRef.current || Math.abs(velocityTracker) < 0.1) {
+        velocityTracker = 0;
+        return;
+      }
+
+      const swiper = swiperRef.current;
+
+      // Giảm dần velocity (friction)
+      velocityTracker *= 0.93;
+
+      // Áp dụng velocity
+      swiper.setTransition(0);
+      swiper.setTranslate(swiper.getTranslate() + velocityTracker);
+      swiper.updateProgress();
+      swiper.updateActiveIndex();
+      swiper.updateSlidesClasses();
+
+      animationFrame = requestAnimationFrame(smoothScroll);
+    };
+
     const onWheel = (e: WheelEvent) => {
-      // Allow vertical scroll to propagate if swiper is at edges or if user intended vertical
-      if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) {
-        // e.preventDefault(); // Un-comment if full lock is desired
-        velocity.current += e.deltaY * 0.25;
-
-        if (!raf.current) run();
-      }
-    };
-
-    const run = () => {
       if (!swiperRef.current) return;
+      if (Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
 
-      const currentTranslate = swiperRef.current.getTranslate();
-      swiperRef.current.setTranslate(currentTranslate - velocity.current);
+      e.preventDefault();
 
-      // sync internal swiper progress/index
-      swiperRef.current.updateProgress();
+      const now = Date.now();
+      const deltaTime = now - lastTime;
+      lastTime = now;
 
-      // Trigger loop wrap-around if needed
-      swiperRef.current.loopFix();
+      // Tính velocity mới dựa trên deltaY
+      const wheelVelocity = -e.deltaY * 0.4;
 
-      velocity.current *= 0.95; // Inertia (Smooth glide)
+      // Cộng dồn velocity (để có cảm giác tích lũy khi scroll nhanh)
+      velocityTracker += wheelVelocity;
 
-      if (Math.abs(velocity.current) > 0.1) {
-        raf.current = requestAnimationFrame(run);
-      } else {
-        velocity.current = 0;
-        raf.current = null;
-      }
+      // Giới hạn velocity tối đa
+      const maxVelocity = 40;
+      velocityTracker = Math.max(-maxVelocity, Math.min(maxVelocity, velocityTracker));
+
+      // Bắt đầu animation nếu chưa chạy
+      cancelAnimationFrame(animationFrame);
+      animationFrame = requestAnimationFrame(smoothScroll);
     };
 
-    // Use a container or window check
     window.addEventListener('wheel', onWheel, { passive: false });
+
     return () => {
       window.removeEventListener('wheel', onWheel);
-      if (raf.current) cancelAnimationFrame(raf.current);
+      cancelAnimationFrame(animationFrame);
     };
   }, []);
 
@@ -84,7 +100,6 @@ const Work: React.FC = () => {
           }
         `}</style>
 
-
         <div className="flex w-full items-end justify-start pointer-events-none absolute left-0 z-20 px-8 bottom-[20%]">
           {/* ... keeping original absolute spacer label if needed, or remove if unused ... */}
         </div>
@@ -101,8 +116,8 @@ const Work: React.FC = () => {
           freeMode={{
             enabled: true,
             momentum: true,
-            momentumRatio: 0.8,
-            momentumVelocityRatio: 1.2,
+            momentumRatio: 1,
+            momentumVelocityRatio: 1,
             momentumBounce: false,
             sticky: false,
           }}

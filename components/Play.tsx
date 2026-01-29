@@ -234,7 +234,7 @@ const Play: React.FC = () => {
             <img
               src={config.defaultSrc}
               alt={`Play item ${config.id}`}
-              className="w-full max-w-[300px] h-auto object-contain rounded-sm shadow-sm"
+              className="w-full max-w-[300px] h-auto object-contain rounded-sm"
             />
           </div>
         ))}
