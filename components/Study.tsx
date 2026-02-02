@@ -1,6 +1,10 @@
 import React from 'react';
 import SectionLabel from './SectionLabel';
 import WannaTalk from './WannaTalk';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, FreeMode } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/free-mode';
 
 interface StudyProps {
 }
@@ -27,7 +31,8 @@ const Study: React.FC<StudyProps> = () => {
     }
   ];
 
-  // Duplicate gems for mobile "infinite" scroll simulation
+  // Use Swiper for mobile "infinite" scroll simulation
+  // Duplicate enough times to ensure smooth loop with Swiper
   const mobileGems = [...gems, ...gems, ...gems, ...gems];
 
   return (
@@ -45,29 +50,51 @@ const Study: React.FC<StudyProps> = () => {
         </div>
 
         {/* Content Block - Centered vertically in available space */}
-        <div className="w-full flex-1 flex items-end overflow-hidden">
-          <div className="flex flex-row flex-nowrap gap-8 items-start overflow-x-auto snap-x snap-mandatory px-8 w-full scrollbar-hide pb-8">
+        <div className="w-full flex-1 flex items-end overflow-hidden pb-8">
+          <Swiper
+            direction="horizontal"
+            slidesPerView="auto"
+            spaceBetween={32}
+            centeredSlides={true}
+            loop={true}
+            speed={6000} // Slow continuous speed
+            autoplay={{
+              delay: 0,
+              disableOnInteraction: false, // Continue autoplay after interaction
+              pauseOnMouseEnter: true, // Pause when holding/hovering
+            }}
+            freeMode={{
+              enabled: true,
+              momentum: true,
+            }}
+            modules={[Autoplay, FreeMode]}
+            className="w-full study-swiper"
+          >
             {mobileGems.map((item, i) => (
-              <a
-                key={`mobile-${i}`}
-                href="#"
-                className="group relative flex flex-col items-center shrink-0 w-[219px] snap-center text-[16px] font-stix text-[#1d3413] transition-all leading-[20px]"
-              >
-                {/* Image: Fixed 219x150 */}
-                <div
-                  className="relative mb-6 opacity-100 transition-opacity duration-300 pointer-events-none z-20 w-[219px] h-[150px]"
+              <SwiperSlide key={`mobile-${i}`} className="!w-[219px] !flex !justify-center !h-auto">
+                <a
+                  href="#"
+                  className="group relative flex flex-col items-center shrink-0 w-[219px] text-[16px] font-stix text-[#1d3413] transition-all leading-[20px]"
                 >
-                  <img
-                    src={item.image}
-                    alt=""
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                <span className="block whitespace-normal w-full text-center">{item.text}</span>
-              </a>
+                  <div
+                    className="relative mb-6 opacity-100 transition-opacity duration-300 pointer-events-none z-20 w-[219px] h-[150px]"
+                  >
+                    <img
+                      src={item.image}
+                      alt=""
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <span className="block whitespace-normal w-full text-center">{item.text}</span>
+                </a>
+              </SwiperSlide>
             ))}
-          </div>
+          </Swiper>
+          <style>{`
+             .study-swiper .swiper-wrapper {
+               transition-timing-function: linear; /* For marquee effect */
+             }
+           `}</style>
         </div>
 
         {/* Footer Block */}
