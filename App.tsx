@@ -88,7 +88,7 @@ const AppContent: React.FC = () => {
           <NavbarMobile currentPage={currentPage} showWannaTalk={false} />
 
           {/* Mobile Content + WannaTalk together */}
-          <div className="flex-1 flex flex-col overflow-hidden">
+          <div className={`flex-1 flex flex-col ${isMobileScrollable ? '' : 'overflow-hidden'}`}>
             <Routes>
               <Route path="/" element={<Navigate to="/hi" replace />} />
               <Route path="/hi" element={<Hero />} />
@@ -102,8 +102,8 @@ const AppContent: React.FC = () => {
             </Routes>
           </div>
 
-          {/* WannaTalk - inside unified block, at bottom - hidden on Home page (handled by Hero) */}
-          {!['/', '/hi'].includes(location.pathname) && (
+          {/* WannaTalk - inside unified block, at bottom - hidden on Home page (handled by Hero) and About page (handled by About) */}
+          {!['/', '/hi', '/about'].includes(location.pathname) && (
             <div className="w-full bg-[#faf7f3] shrink-0">
               <WannaTalk isActive={currentPage === 'contact'} />
             </div>

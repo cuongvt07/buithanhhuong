@@ -189,7 +189,7 @@ const Hero: React.FC<HeroProps> = () => {
             text="or mostly just breathe"
             width="205px"
             mobileWidth="205px"
-            className="relative z-50 p-0"
+            className="relative z-50"
           />
         </div>
 

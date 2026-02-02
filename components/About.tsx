@@ -1,6 +1,7 @@
-
 import React from 'react';
 import SectionLabel from './SectionLabel';
+import WannaTalk from './WannaTalk';
+import { COLORS, TYPOGRAPHY } from '../config/designTokens';
 
 const About: React.FC = () => {
   const currentInterests = [
@@ -18,9 +19,53 @@ const About: React.FC = () => {
   ];
 
   return (
-    <section className="min-h-screen md:h-screen px-0 w-full relative md:overflow-hidden flex flex-col items-center">
-      {/* Container to fill the section */}
-      <div className="w-full flex-1 relative flex flex-col">
+    <section className="min-h-screen md:h-screen w-full relative md:overflow-hidden flex flex-col items-center">
+      {/* Mobile Layout - Scrollable Container */}
+      <div className="md:hidden w-full flex flex-col items-center pt-[60px] pb-[32px] px-[32px] gap-[48px]">
+        {/* Block 1: Interests */}
+        <div className="w-full flex flex-col items-center gap-0">
+          <SectionLabel
+            text="'m"
+            width="84px"
+            mobileWidth="84px"
+            className="relative"
+          />
+          <div className="w-full space-y-2 flex flex-col items-center pt-[32px]">
+            {currentInterests.map((item, idx) => (
+              <div key={idx} className="w-full text-center text-[#1d3413] px-2" style={{ fontFamily: TYPOGRAPHY.body.fontFamily, fontSize: '16px', lineHeight: '24px' }}>
+                <span className="font-medium mr-1">{item.label}</span>
+                <span className="opacity-100">{item.desc}{idx < currentInterests.length - 1 ? ',' : ''}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Block 2: History */}
+        <div className="w-full flex flex-col items-center gap-0">
+          <SectionLabel
+            text="drifted"
+            width="112px"
+            mobileWidth="112px"
+            className="relative"
+          />
+          <div className="w-full space-y-4 pt-[32px]">
+            {history.map((item, idx) => (
+              <div key={idx} className="flex flex-row gap-4 text-[16px] leading-[20px] justify-between items-start text-left w-full">
+                <span className="w-[120px] shrink-0 text-[#1d3413] font-normal whitespace-nowrap">{item.period}</span>
+                <span className="text-[#1d3413] flex-1 opacity-100">{item.desc}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Block 3: WannaTalk */}
+        <div className="w-full pt-8 flex justify-center">
+          <WannaTalk isActive={false} />
+        </div>
+      </div>
+
+      {/* Desktop Layout - Kept but hidden on mobile */}
+      <div className="hidden md:flex w-full flex-1 relative flex flex-col">
 
         {/* Group 1: Interests - Vertically Centered on Desktop (Fixed to Viewport) */}
         <div className="w-full flex flex-col md:fixed md:inset-0 md:justify-center md:items-center px-0 md:px-12 z-10 mb-10 md:mb-0 pointer-events-none">
