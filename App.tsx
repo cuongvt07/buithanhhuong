@@ -20,11 +20,11 @@ import Lenis from 'lenis';
 const MOBILE_SCROLL_CONFIG: Record<string, boolean> = {
   home: false,      // Hero - không scroll
   about: true,      // About - scroll dọc
-  study: true,      // Study - scroll dọc
-  observe: true,    // Observe - scroll dọc
+  study: false,      // Study - không scroll dọc
+  observe: false,    // Observe - không scroll dọc
   work: false,      // Work - không scroll dọc (scroll ngang)
-  play: true,       // Play - scroll dọc
-  contact: true,    // Contact - scroll dọc
+  play: false,       // Play - không scroll dọc
+  contact: false,    // Contact - không scroll dọc
 };
 
 const AppContent: React.FC = () => {
@@ -103,7 +103,7 @@ const AppContent: React.FC = () => {
           </div>
 
           {/* WannaTalk - inside unified block, at bottom - hidden on Home page (handled by Hero) and About page (handled by About) */}
-          {!['/', '/hi', '/about'].includes(location.pathname) && (
+          {!['/', '/hi', '/about', '/study', '/observe', '/play', '/contact'].includes(location.pathname) && (
             <div className="w-full bg-[#faf7f3] shrink-0">
               <WannaTalk isActive={currentPage === 'contact'} />
             </div>
@@ -122,7 +122,7 @@ const AppContent: React.FC = () => {
       `}</style>
       <main
         ref={mainRef}
-        className={`desktop-main flex-1 flex-col hidden md:flex
+        className={`desktop-main flex-1 flex-col hidden md:flex md:justify-end
         pt-0 ${['home', 'work', 'play', 'study', 'observe', 'about'].includes(currentPage) ? 'md:pt-0' : 'md:pt-[84px]'}
         ${currentPage === 'home' ? 'md:overflow-hidden' : 'overflow-y-auto'} no-scrollbar`}
       >
