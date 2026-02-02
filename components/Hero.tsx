@@ -165,14 +165,17 @@ const Hero: React.FC<HeroProps> = () => {
 
       {/* Main hero text - responsive scaling */}
       {/* Mobile Hero Content Wrapper - Flex Column to stack 3 blocks: Text, Label, WannaTalk */}
-      <div className="w-full h-full flex flex-col justify-between items-center md:hidden z-40 pointer-events-none relative overflow-hidden py-[24px]">
-        {/* Absolute Background Layer */}
-        <div className="absolute bottom-[120px] left-[25%] w-[400px] h-[400px] z-0 transform scale-[0.5] origin-bottom-left -rotate-[20deg] opacity-50">
+      <div className="w-full h-full flex flex-col justify-between items-center md:hidden z-40 pointer-events-none relative overflow-hidden pt-[24px]">
+        {/* Absolute Background Layer (Desktop Only) */}
+        <div className="absolute bottom-[120px] left-[25%] w-[400px] h-[400px] z-0 transform scale-[0.5] origin-bottom-left -rotate-[20deg] opacity-50 hidden md:block">
           <img src={rainbowLightSticker286Url} alt="" className="w-full h-full object-contain" />
         </div>
 
         {/* Block 1: TextLines - Fixed at Top */}
-        <div className="w-full flex flex-col items-center gap-[5px] shrink-0">
+        <div className="w-full flex flex-col items-center gap-[5px] shrink-0 relative">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] z-0 transform scale-[0.8] -rotate-[10deg] opacity-30 pointer-events-none">
+            <img src={rainbowLightSticker286Url} alt="" className="w-full h-full object-contain" />
+          </div>
           <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '20px', color: COLORS.textPrimary }}>I walk this Earth,</span>
           <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '20px', color: COLORS.textPrimary }}>water the flowers,</span>
           <span className="relative z-10" style={{ fontFamily: "'STIX Two Text', serif", fontSize: '16px', lineHeight: '20px', color: COLORS.textPrimary }}>pat the little puppies,</span>
