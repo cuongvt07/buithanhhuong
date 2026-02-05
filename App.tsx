@@ -21,7 +21,7 @@ const MOBILE_SCROLL_CONFIG: Record<string, boolean> = {
   home: false,      // Hero - không scroll
   about: true,      // About - scroll dọc
   study: false,      // Study - không scroll dọc
-  observe: false,    // Observe - không scroll dọc
+  observe: true,    // Observe - scroll dọc
   work: false,      // Work - không scroll dọc (scroll ngang)
   play: false,       // Play - không scroll dọc
   contact: false,    // Contact - không scroll dọc

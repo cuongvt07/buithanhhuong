@@ -32,40 +32,29 @@ const Observe: React.FC<ObserveProps> = () => {
   ];
 
   return (
-    <section className="flex-1 w-full md:h-screen min-h-screen flex flex-col items-center px-0 md:px-6 pb-24 md:pb-[20px] relative overflow-hidden">
-      {/* Section Label (Mobile: Centered, Desktop: Centered Fixed) */}
-      <div className="md:hidden w-full flex justify-center">
-        <SectionLabel
-          text="what's around me"
-          width="214px"
-          mobileWidth="214px"
-          className="relative"
-        />
-      </div>
+    <section className="w-full md:h-screen relative md:overflow-hidden flex flex-col items-center flex-1">
+      {/* Mobile Layout - Scrollable Container */}
+      <div className="md:hidden w-full flex flex-col justify-between items-center px-[32px] flex-1">
+        <div className="w-full flex flex-col items-center">
+          {/* Section Label */}
+          <SectionLabel
+            text="what's around me"
+            width="214px"
+            mobileWidth="214px"
+            className="relative"
+          />
 
-      <div className="hidden md:flex fixed top-1/2 left-0 w-full -translate-y-1/2 items-center justify-start pointer-events-none z-10">
-        <SectionLabel
-          text="what's around me"
-          width="214px"
-          mobileWidth="214px"
-        />
-      </div>
-
-      {/* Main Content - Centered Full Viewport */}
-      <div className="relative md:fixed md:inset-0 w-full flex flex-col justify-start md:justify-center items-center z-10 pointer-events-none">
-        <div className="relative w-full md:w-max md:ml-[120px] md:p-[32px_42px] pointer-events-auto">
-
-          {/* Actual Content - Left aligned items within a centered block */}
-          <div className="flex flex-col gap-8 md:gap-[16px] px-0 md:px-0 py-0 w-full items-center md:items-start">
+          {/* Thoughts List */}
+          <div className="w-full flex flex-col gap-8 items-center">
             {thoughts.map((item, i) => (
               <div
                 key={i}
                 onClick={() => setSelectedThought(item)}
-                className="group relative flex flex-row md:block items-end md:items-start text-[16px] font-stix text-[#1d3413] leading-[20px] cursor-pointer w-full md:w-fit mx-0 md:mx-0 gap-[24px] md:gap-0 transition-opacity"
+                className="group relative flex flex-row items-end text-[16px] font-stix text-[#1d3413] leading-[20px] cursor-pointer w-full gap-[24px]"
               >
                 {/* Mobile Image: Left side, static */}
                 {item.image && (
-                  <div className="block md:hidden shrink-0 w-[120px] h-[120px]">
+                  <div className="shrink-0 w-[120px] h-[120px]">
                     <img
                       src={item.image.src}
                       alt=""
@@ -75,32 +64,60 @@ const Observe: React.FC<ObserveProps> = () => {
                 )}
 
                 {/* Text */}
-                <span className="relative z-10 text-left flex-1 md:flex-none">
-                  {/* Handle specific mobile line breaks */}
-                  <span className="md:hidden">
-                    {i === 0 && (
-                      <>
-                        Highschool Student <br /> Assessment or fastest- <br /> finger-first competition?
-                      </>
-                    )}
-                    {i === 1 && (
-                      <>
-                        Digital Product vs <br /> Architecture - a type of <br /> huge physical product
-                      </>
-                    )}
-                    {/* Fallback for other items if any */}
-                    {i > 1 && item.text}
-                  </span>
-                  {/* Desktop Text */}
-                  <span className="hidden md:inline">
-                    {item.text}
-                  </span>
+                <span className="relative z-10 text-left flex-1">
+                  {i === 0 && (
+                    <>
+                      Highschool Student <br /> Assessment or fastest- <br /> finger-first competition?
+                    </>
+                  )}
+                  {i === 1 && (
+                    <>
+                      Digital Product vs <br /> Architecture - a type of <br /> huge physical product
+                    </>
+                  )}
+                  {i > 1 && item.text}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* WannaTalk - Always at bottom */}
+        <div className="w-full pt-[88px] flex justify-center pb-0">
+          <WannaTalk isActive={false} />
+        </div>
+      </div>
+
+      {/* Desktop Layout - Fixed Viewport (Hidden on Mobile) */}
+      <div className="hidden md:flex fixed inset-0 w-full h-full flex-col items-center justify-center pointer-events-none">
+
+        {/* Desktop Section Label */}
+        <div className="fixed top-1/2 left-0 w-full -translate-y-1/2 flex items-center justify-start z-10 pl-6">
+          <SectionLabel
+            text="what's around me"
+            width="214px"
+            mobileWidth="214px"
+          />
+        </div>
+
+        {/* Main Content - Centered */}
+        <div className="relative w-full md:w-max md:ml-[120px] md:p-[32px_42px] pointer-events-auto">
+          <div className="flex flex-col gap-[16px] w-full items-start">
+            {thoughts.map((item, i) => (
+              <div
+                key={i}
+                onClick={() => setSelectedThought(item)}
+                className="group relative block items-start text-[16px] font-stix text-[#1d3413] leading-[20px] cursor-pointer w-fit transition-opacity"
+              >
+                {/* Desktop Text */}
+                <span className="relative z-10 text-left inline-block transition-transform duration-300 group-hover:scale-110 origin-left">
+                  {item.text}
                 </span>
 
-                {/* Desktop Hover Image - Positioned to the right of the text */}
+                {/* Desktop Hover Image */}
                 {item.image && (
                   <div
-                    className="hidden md:block absolute left-full top-1/2 -translate-y-1/2 ml-4 z-50 pointer-events-none"
+                    className="absolute left-full top-1/2 -translate-y-1/2 ml-4 z-50 pointer-events-none"
                     style={{
                       width: item.image.width,
                     }}
@@ -108,7 +125,7 @@ const Observe: React.FC<ObserveProps> = () => {
                     <img
                       src={item.image.src}
                       alt={item.text}
-                      className="w-full h-auto object-cover opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] origin-left rounded-sm"
+                      className="w-full h-auto object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] origin-left rounded-sm"
                     />
                   </div>
                 )}

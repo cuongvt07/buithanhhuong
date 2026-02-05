@@ -1,5 +1,6 @@
-import React, { useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
+import React, { useRef, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { DEFAULT_ARTICLE, ContentBlock } from '../data/thought-content';
 import ScrollToTop from './ScrollToTop';
 
@@ -18,13 +19,9 @@ interface ThoughtDetailProps {
 
 // Inner component to handle scroll logic safely when mounted
 const ThoughtDetailContent: React.FC<{ data: ThoughtInfo; onClose: () => void }> = ({ data, onClose }) => {
-    // We don't need useScroll anymore for the structural movement
-    // The structure itself provides the behavior:
-    // Scroll Container (100vh) -> spacers (15vh) + content
-
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-    return (
+    return createPortal(
         <>
             {/* Scrollable Overlay Container */}
             <motion.div
@@ -32,12 +29,11 @@ const ThoughtDetailContent: React.FC<{ data: ThoughtInfo; onClose: () => void }>
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-[9990] overflow-y-auto no-scrollbar scroll-smooth"
+                className="fixed inset-0 z-[9990] overflow-y-auto scroll-smooth"
             >
                 {/* Backdrop (fixed relative to screen, not scrolling) */}
-                {/* Note: This might be covered by the container itself, but kept for visual blur */}
                 <div
-                    className="fixed inset-0 bg-black/20 backdrop-blur-sm -z-10"
+                    className="fixed inset-0 bg-[#000000]/60 -z-10"
                 />
 
                 {/* Layout Wrapper: Spans full scrollable height */}
@@ -56,7 +52,7 @@ const ThoughtDetailContent: React.FC<{ data: ThoughtInfo; onClose: () => void }>
                         animate={{ y: 0, opacity: 1 }}
                         exit={{ y: 200, opacity: 0 }}
                         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                        className="bg-white shadow-2xl overflow-hidden relative shrink-0 cursor-auto modal-card"
+                        className="bg-white shadow-2xl relative shrink-0 cursor-auto modal-card"
                         onClick={(e) => e.stopPropagation()} // Prevent close when clicking inside card
                         style={{
                             width: 'calc(100% - (var(--popup-margin-x) * 2))',
@@ -166,45 +162,16 @@ const ThoughtDetailContent: React.FC<{ data: ThoughtInfo; onClose: () => void }>
             <ScrollToTop containerRef={scrollContainerRef} />
 
             <style>{`
-        @font-face {
-            font-family: 'Overused Grotesk';
-            src: url('https://cdn.jsdelivr.net/npm/@fontsource/overused-grotesk@latest/files/overused-grotesk-book-350-normal.woff2') format('woff2');
-            font-weight: 350;
-            font-style: normal;
-        }
-
+        /* Replaced broken font with system fonts or standard imports if available */
+        
         :root {
             /* 
               Fluid Scaling from 1440px to 1905px
-              
-              Popup Margin:
-              - 1440px: 162px
-              - 1905px: 290px
-              - Formula: 162px + (290 - 162) * (100vw - 1440px) / (1905 - 1440)
-              - Slope: 0.27526... -> ~27.53vw
-              - Intercept: -234.38px
-              - Clamp: min 162px, max 290px
-              
-              Content Padding:
-              - 1440px: 178px
-              - 1905px: 284px
-              - Formula: 178px + (284 - 178) * (100vw - 1440px) / (1905 - 1440)
-              - Slope: 0.22795... -> ~22.8vw
-              - Intercept: -150.25px
-              - Clamp: min 178px, max 284px
             */
             --popup-margin-x: clamp(162px, 27.53vw - 234px, 290px);
             --content-padding-x: clamp(178px, 22.8vw - 150px, 284px);
         }
         
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
         /* Mobile Responsive Overrides */
         @media (max-width: 1024px) {
            :root {
@@ -243,11 +210,30 @@ const ThoughtDetailContent: React.FC<{ data: ThoughtInfo; onClose: () => void }>
            }
         }
       `}</style>
-        </>
+        </>,
+        document.body
     );
 };
 
 const ThoughtDetail: React.FC<ThoughtDetailProps> = ({ isOpen, onClose, data }) => {
+    // Only render on client side to avoid hydration mismatch with Portal
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+        // Lock body scroll when open
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        }
+    }, [isOpen]);
+
+    if (!mounted) return null;
+
     return (
         <AnimatePresence>
             {isOpen && data && (
