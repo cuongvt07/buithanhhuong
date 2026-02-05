@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
-import { FreeMode, Keyboard } from 'swiper/modules';
+import { FreeMode, Keyboard, Autoplay } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/free-mode';
+import 'swiper/css/autoplay';
 
 import WannaTalk from './WannaTalk';
 
@@ -20,7 +21,7 @@ const Work: React.FC = () => {
     { title: 'thêu một mùa thu', img: 'images/1.avif', scale: 0.1, marginRight: 110 },
   ];
 
-  const projects = Array(20).fill(originalProjects).flat();
+  const projects = Array(5).fill(originalProjects).flat();
   const swiperRef = useRef<SwiperType | null>(null);
 
   useEffect(() => {
@@ -29,6 +30,9 @@ const Work: React.FC = () => {
     let animationFrame: number;
 
     const smoothScroll = () => {
+      // Disabled for the new auto-scroll logic, or we can keep it for desktop if needed. 
+      // The user asked for "mobile auto scroll", but typically with Swiper Autoplay delay 0, it overrides manual control unless configured well.
+      // However, usually "drift" implies continuous movement.
       if (!swiperRef.current || Math.abs(velocityTracker) < 0.1) {
         velocityTracker = 0;
         return;
@@ -52,6 +56,11 @@ const Work: React.FC = () => {
     const onWheel = (e: WheelEvent) => {
       if (!swiperRef.current) return;
       if (Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
+
+      // Stop autoplay on wheel
+      if (swiperRef.current.autoplay.running) {
+        swiperRef.current.autoplay.stop();
+      }
 
       e.preventDefault();
 
@@ -89,13 +98,19 @@ const Work: React.FC = () => {
       <div className="w-full h-full relative">
         <style>{`
           .work-item-container {
-             /* Mobile: Scale based on 1440px reference width */
+             /* Mobile: Use large reference width to keep images "PC-sized" */
              width: calc(var(--scale) * 1440px); 
           }
           @media (min-width: 768px) {
             .work-item-container {
                /* Desktop: Scale based on viewport width */
                width: calc(var(--scale) * 100vw);
+            }
+          }
+          /* Smooth linear scrolling for Marquee effect - MOBILE ONLY */
+          @media (max-width: 767px) {
+            .swiper-wrapper {
+              transition-timing-function: linear !important;
             }
           }
         `}</style>
@@ -105,29 +120,50 @@ const Work: React.FC = () => {
         </div>
 
         <Swiper
-          onSwiper={(s) => (swiperRef.current = s)}
+          onSwiper={(s) => {
+            swiperRef.current = s;
+            // Ensure autoplay starts if configured (mobile)
+            if (s.autoplay && !s.autoplay.running) {
+              s.autoplay.start();
+            }
+          }}
           direction="horizontal"
           slidesPerView="auto"
           spaceBetween={0}
           loop={true}
           loopedSlides={8}
-          speed={600}
-          grabCursor={true}
-          freeMode={{
-            enabled: true,
-            momentum: true,
-            momentumRatio: 1,
-            momentumVelocityRatio: 1,
-            momentumBounce: false,
-            sticky: false,
+          // Breakpoints handle the specific logic for Mobile (Autoplay) vs Desktop (FreeMode)
+          breakpoints={{
+            0: {
+              speed: 8000,
+              freeMode: false,
+              autoplay: {
+                delay: 0,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: false,
+              }
+            },
+            768: {
+              speed: 600,
+              autoplay: false,
+              freeMode: {
+                enabled: true,
+                momentum: true,
+                momentumRatio: 1,
+                momentumVelocityRatio: 1,
+                momentumBounce: false,
+                sticky: false,
+              }
+            }
           }}
+          grabCursor={true}
           mousewheel={false} // Custom wheel implementation above
           slidesOffsetBefore={32}
           keyboard={{
             enabled: true,
             onlyInViewport: true,
           }}
-          modules={[FreeMode, Keyboard]}
+          modules={[FreeMode, Keyboard, Autoplay]}
           className="w-full h-full flex items-end swiper-work"
         >
           {projects.map((p, i) => (
