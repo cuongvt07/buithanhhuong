@@ -110,7 +110,7 @@ const Observe: React.FC<ObserveProps> = () => {
                 className="group relative block items-start text-[16px] font-stix text-[#1d3413] leading-[20px] cursor-pointer w-fit transition-opacity"
               >
                 {/* Desktop Text */}
-                <span className="relative z-10 text-left inline-block transition-transform duration-300 group-hover:scale-110 origin-left">
+                <span className="relative z-10 text-left inline-block">
                   {item.text}
                 </span>
 
